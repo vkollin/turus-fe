@@ -1,0 +1,5 @@
+# simple way to catch all routes and handle it by react-routes-dom, due to poor hosting
+# and having no access to any nginx config
+
+FallbackResource /index.html
+

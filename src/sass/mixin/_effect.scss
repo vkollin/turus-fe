@@ -1,0 +1,13 @@
+@mixin boxShadow($level: 1, $opacityMultiplicator: 1) {
+    @if $level == 1 {
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06 * $opacityMultiplicator);
+    } @else if $level == 2 {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04 * $opacityMultiplicator), 0 2px 4px rgba(0, 0, 0, 0.08 * $opacityMultiplicator);
+    } @else if $level == 3 {
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1 * $opacityMultiplicator), 0 5px 10px rgba(0, 0, 0, 0.2 * $opacityMultiplicator);
+    } @else if $level == 4 {
+        box-shadow: 0 10px 14px rgba(0, 0, 0, 0.12 * $opacityMultiplicator), 0 10px 14px rgba(0, 0, 0, 0.24 * $opacityMultiplicator);
+    } @else if $level == 5 {
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15 * $opacityMultiplicator), 0 20px 40px rgba(0, 0, 0, 0.3 * $opacityMultiplicator);
+    }
+}
