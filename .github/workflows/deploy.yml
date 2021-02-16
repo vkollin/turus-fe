@@ -36,31 +36,4 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           source: ${{ env.working-dir }}/dist
-          target: ${{ env.remote-release-dir }}-${{ github.run_number }}
-
-      - name: rename old
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          script: rm -rf ${{ env.remote-release-dir }}-old && mv ${{ env.remote-src-dir }} ${{ env.remote-release-dir }}-old
-
-      - name: rename new
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          script: mv ${{ env.remote-release-dir }}-${{ github.run_number }}/${{ env.working-dir }} ${{ env.remote-src-dir }}
-
-      - name: remove release dir
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          script: rm -rf ${{ env.remote-release-dir }}-${{ github.run_number }}
+          target: ${{ env.remote-src-dir }}
