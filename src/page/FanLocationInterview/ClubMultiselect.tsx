@@ -12,7 +12,6 @@ export const ClubMultiSelect = (props: { onSubmit: ((clubs: Club[]) => void), se
     const previousSelectedClubs = usePrevious<Club[]>(selectedClubs)
 
     useEffect(() => {
-        const x = previousSelectedClubs;
         if (typeof previousSelectedClubs !== "undefined") {
             props.onSubmit(selectedClubs);
         }
@@ -66,7 +65,6 @@ const ClubSelection = (props: { onSelect: (club: Club) => void, selectedClubs: C
     }
 
     return <Select<Club>
-        value={null}
         loadOptions={handleLoadOptions}
         onValueChange={(newValue => {
             if (newValue !== null) {

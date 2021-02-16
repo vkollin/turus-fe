@@ -11,14 +11,13 @@ import {RootStore} from "../../store";
 import {UserHashType} from "../../model/User";
 
 const FanLocationInterview = (props: { hash: UserHashType }): JSX.Element => {
-    console.log(props.hash)
     const [isLoading, user, setPostcode, setClubs, setEnemies] = useUser(props.hash)
 
     if (isLoading || user === null) {
         return <Loading fullpage/>
     }
 
-    const handlePostcodeUpdate = (postcode: Postcode) => {
+    const handlePostcodeUpdate = (postcode: Postcode | null) => {
         setPostcode(postcode);
     }
 

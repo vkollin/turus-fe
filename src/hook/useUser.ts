@@ -12,15 +12,15 @@ import {persistHash} from "../store/user/actions";
 type useUserReturnType = [
     boolean,
         User | null,
-    (postcode: Postcode) => void,
+    (postcode: Postcode | null) => void,
     (clubs: Club[]) => void,
-    (clubs: Club[]) => void
+    (clubs: Club[]) => void,
 ];
 
 
 interface StateType {
     user: User,
-    finishedLoading: boolean
+    finishedLoading: boolean,
 }
 
 interface NewUserStateInterface {
@@ -91,7 +91,7 @@ export const useUser = (initialHash: string | null): useUserReturnType => {
         }
     }, [state.user])
 
-    const setPostcode = (postcode: Postcode): void => {
+    const setPostcode = (postcode: Postcode | null): void => {
         stateDispatch({postcode: postcode})
     }
 

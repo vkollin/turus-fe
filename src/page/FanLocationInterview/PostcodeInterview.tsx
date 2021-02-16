@@ -7,7 +7,29 @@ import {ThunkDispatchType} from "../../type/thunk";
 import {searchPostcodes} from "../../store/action/searchPostcodes";
 import {Postcode} from "../../model/Postcode";
 
-export const PostcodeInterview = (props: { onSubmit: ((postcode: Postcode) => void), value: Postcode | null }) => {
+export const PostcodeInterview = (props: { onSubmit: ((postcode: Postcode | null) => void), value: Postcode | null }) => {
+    return <PageContent>
+        <h1>PLZ Auswahl</h1>
+
+        {
+            props.value === null
+                ? <SelectPostcode onSubmit={props.onSubmit}/>
+                : <ShowPostcode value={props.value} onSubmit={props.onSubmit}/>
+        }
+    </PageContent>
+}
+
+const ShowPostcode = (props: { onSubmit: ((postcode: Postcode | null) => void), value: Postcode }) => {
+    return <div
+        onClick={() => {
+            props.onSubmit(null)
+        }}
+    >
+        {props.value.code}
+    </div>
+}
+
+const SelectPostcode = (props: { onSubmit: ((postcode: Postcode) => void) }) => {
     const dispatch = useDispatch<ThunkDispatchType>();
 
     const handleLoadOptions = (inputValue: string): Promise<OptionTypeBase[]> => {
@@ -27,18 +49,12 @@ export const PostcodeInterview = (props: { onSubmit: ((postcode: Postcode) => vo
         }))
     }
 
-
-    return <PageContent>
-        <h1>PLZ Auswahl</h1>
-
-        <Select<Postcode>
-            value={props.value}
-            loadOptions={handleLoadOptions}
-            onValueChange={(newPostcode => {
-                if (newPostcode instanceof Postcode) {
-                    props.onSubmit(newPostcode)
-                }
-            })}
-        />
-    </PageContent>
+    return <Select<Postcode>
+        loadOptions={handleLoadOptions}
+        onValueChange={(newPostcode => {
+            if (newPostcode instanceof Postcode) {
+                props.onSubmit(newPostcode)
+            }
+        })}
+    />
 }
