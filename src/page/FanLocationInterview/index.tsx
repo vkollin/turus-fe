@@ -6,9 +6,13 @@ import {EnemyInterview} from "./EnemyInterview";
 import {Loading} from "../../component/Loading";
 import {Club} from "../../model/Club";
 import {Postcode} from "../../model/Postcode";
+import {connect} from "react-redux";
+import {RootStore} from "../../store";
+import {UserHashType} from "../../model/User";
 
-export const FanLocationInterview = (): JSX.Element => {
-    const [isLoading, user, setPostcode, setClubs, setEnemies] = useUser(null)
+const FanLocationInterview = (props: { hash: UserHashType }): JSX.Element => {
+    console.log(props.hash)
+    const [isLoading, user, setPostcode, setClubs, setEnemies] = useUser(props.hash)
 
     if (isLoading || user === null) {
         return <Loading fullpage/>
@@ -32,3 +36,5 @@ export const FanLocationInterview = (): JSX.Element => {
         <EnemyInterview onSubmit={handleEnemiesUpdate} clubs={user.enemies}/>
     </>
 }
+
+export default connect((store: RootStore) => ({hash: store.user.hash,}))(FanLocationInterview);

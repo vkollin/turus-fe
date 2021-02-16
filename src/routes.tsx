@@ -9,7 +9,6 @@ const defaultLoadableOptions = {
 export const Homepage = () => {
     const Component = loadable(() => import("./page/Homepage"), {
         ...defaultLoadableOptions,
-        resolveComponent: mod => mod.Homepage,
     });
 
     return <Component/>;
@@ -18,7 +17,6 @@ export const Homepage = () => {
 export const FanLocationInterview = () => {
     const Component = loadable(() => import("./page/FanLocationInterview"), {
         ...defaultLoadableOptions,
-        resolveComponent: mod => mod.FanLocationInterview,
     });
 
     return <Component/>;

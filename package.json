@@ -23,6 +23,7 @@
     "@babel/register": "^7.12.13",
     "@loadable/babel-plugin": "^5.13.2",
     "@loadable/webpack-plugin": "^5.14.2",
+    "@types/js-cookie": "^2.2.6",
     "@types/loadable__component": "^5.13.2",
     "@types/react": "^17.0.1",
     "@types/react-dom": "^17.0.0",
@@ -59,6 +60,7 @@
   "dependencies": {
     "@loadable/component": "^5.14.1",
     "axios": "^0.21.1",
+    "js-cookie": "^2.2.1",
     "normalize.css": "^8.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

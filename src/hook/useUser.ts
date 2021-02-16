@@ -7,6 +7,7 @@ import {Postcode} from "../model/Postcode";
 import {Club} from "../model/Club";
 import {updateUser} from "../store/action/updateUser";
 import {usePrevious} from "./usePrevious";
+import {persistHash} from "../store/user/actions";
 
 type useUserReturnType = [
     boolean,
@@ -61,6 +62,10 @@ export const useUser = (initialHash: string | null): useUserReturnType => {
     useEffect(() => {
         dispatch(fetchUser(initialHash))
             .then(u => {
+                if (typeof u.hash === "string") {
+                    dispatch(persistHash(u.hash));
+                }
+
                 stateDispatch({
                     hash: u.hash,
                     postcode: u.postcode,
