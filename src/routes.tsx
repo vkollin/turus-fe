@@ -23,12 +23,3 @@ export const FanLocationInterview = () => {
 
     return <Component/>;
 };
-
-export const ApiDocumentation = () => {
-    const Component = loadable(() => import("./page/ApiDocumentation"), {
-        ...defaultLoadableOptions,
-        resolveComponent: mod => mod.ApiDocumentation,
-    });
-
-    return <Component/>;
-};
