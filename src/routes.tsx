@@ -1,6 +1,6 @@
 import React from "react";
 import loadable from "@loadable/component";
-import {Loading} from "./element/Loading";
+import {Loading} from "./component/Loading";
 
 const defaultLoadableOptions = {
     fallback: <Loading/>
@@ -10,6 +10,15 @@ export const Homepage = () => {
     const Component = loadable(() => import("./page/Homepage"), {
         ...defaultLoadableOptions,
         resolveComponent: mod => mod.Homepage,
+    });
+
+    return <Component/>;
+};
+
+export const FanLocationInterview = () => {
+    const Component = loadable(() => import("./page/FanLocationInterview"), {
+        ...defaultLoadableOptions,
+        resolveComponent: mod => mod.FanLocationInterview,
     });
 
     return <Component/>;

@@ -12,12 +12,13 @@ module.exports = (env, argv) => {
     const outputDir = path.join(__dirname, '/dist');
     const assetsDir = path.join(__dirname, '/src');
 
-
     const config = {
         mode: isDevelopment ? 'development' : 'production',
+
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.jsx', '.css', '.scss'],
         },
+
         entry: {
             index: path.join(assetsDir, "index.tsx")
         },
@@ -26,10 +27,11 @@ module.exports = (env, argv) => {
             path: outputDir,
             filename: '[name].[fullhash].js'
         },
+
         module: {
             rules: [
                 {
-                    test: /.*\.s?css$/,
+                    test: /.*\.scss$/,
                     include: assetsDir,
                     use: [
                         {loader: MiniCssExtractPlugin.loader, options: {esModule: false}},

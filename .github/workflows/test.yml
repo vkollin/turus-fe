@@ -1,0 +1,26 @@
+name: Lint JavaScript
+
+on: push
+
+env:
+  working-dir: ./
+
+jobs:
+  js-lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ env.working-dir }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install project dependencies
+        run: yarn
+
+      - name: Check linter
+        run: yarn lint
+
+      - name: check typescript
+        run: yarn tsc

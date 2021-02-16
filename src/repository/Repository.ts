@@ -1,4 +1,4 @@
-import {AxiosResponse, AxiosStatic} from "axios";
+import {AxiosRequestConfig, AxiosResponse, AxiosStatic} from "axios";
 
 export class Repository {
     constructor(
@@ -17,10 +17,14 @@ export class Repository {
         }
     }
 
+    private axiosDefaultOptions = (): AxiosRequestConfig => {
+        return {}
+    }
+
     protected get<ReturnType>(url: string): Promise<ReturnType> {
         return new Promise((resolve, reject) => {
             this.axios
-                .get<ReturnType>(`${this.apiUrl}${url}`)
+                .get<ReturnType>(`${this.apiUrl}${url}`, this.axiosDefaultOptions())
                 .then(rawResponse => {
                     Repository.handleResponse<ReturnType>(rawResponse, resolve, reject)
                 })
@@ -28,10 +32,10 @@ export class Repository {
         });
     };
 
-    protected post<PayloadType, ReturnType>(url: string, payload: PayloadType): Promise<ReturnType> {
+    protected post<PayloadType, ReturnType>(url: string, payload: PayloadType | null = null): Promise<ReturnType> {
         return new Promise((resolve, reject) => {
             this.axios
-                .post<ReturnType>(`${this.apiUrl}${url}`, payload)
+                .post<ReturnType>(`${this.apiUrl}${url}`, payload, this.axiosDefaultOptions())
                 .then(rawResponse => {
                     Repository.handleResponse<ReturnType>(rawResponse, resolve, reject)
                 })
