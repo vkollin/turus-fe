@@ -1,4 +1,4 @@
 export enum Routes {
     HOME = '/',
-    API_DOCUMENTATION = '/documentaion',
+    FAN_LOCATION_INTERVIEW = '/interview',
 }
