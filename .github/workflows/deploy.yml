@@ -3,7 +3,7 @@ name: 🚀 Deploy
 on:
   push:
     branches:
-      - master
+      - main
 
 env:
   working-dir: ./service/turus/src
