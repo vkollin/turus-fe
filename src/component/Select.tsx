@@ -5,21 +5,13 @@ import {color} from "../style/color";
 
 type Props<Value> = {
     onValueChange: (newValue: Value | null) => void,
-    loadOptions: (inputValue: string) => Promise<OptionTypeBase>
+    loadOptions: (inputValue: string) => Promise<ReadonlyArray<OptionTypeBase>>
     value?: Value | null,
 };
 
 export function Select<Value>(props: Props<Value>): JSX.Element {
-    const handleLoadOptions = (inputValue: string): Promise<OptionTypeBase> => {
-        return new Promise<OptionTypeBase>(((resolve, reject) => {
-            props.loadOptions(inputValue)
-                .then((data: OptionTypeBase) => {
-                    resolve(data);
-                })
-                .catch(
-                    () => reject()
-                )
-        }));
+    const handleLoadOptions = async (inputValue: string): Promise<ReadonlyArray<OptionTypeBase>> => {
+        return await props.loadOptions(inputValue)
     }
 
     return <AsyncSelect
@@ -37,7 +29,6 @@ export function Select<Value>(props: Props<Value>): JSX.Element {
         isMulti={false}
     />
 }
-
 
 // @ts-ignore
 const styleSelect: StylesConfig = {

@@ -25,7 +25,6 @@ jobs:
       - name: install node_modules dependencies
         run: yarn install
 
-      # Build JS
       - name: build-js
         run: API_URL=${{ secrets.API_URL }} yarn build
 
