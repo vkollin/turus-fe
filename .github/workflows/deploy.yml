@@ -35,5 +35,5 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          source: ${{ env.working-dir }}/dist
+          source: ${{ env.working-dir }}/dist/*
           target: ${{ env.remote-src-dir }}
