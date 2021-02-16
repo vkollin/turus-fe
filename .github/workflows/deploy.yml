@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  working-dir: ./service/turus/src
+  working-dir: ./
   release-dir: ../release
   remote-src-dir: /home/webrtzm2r/html/turus.devultras.com
   remote-release-dir: /home/webrtzm2r/release/turus.devultras.com
