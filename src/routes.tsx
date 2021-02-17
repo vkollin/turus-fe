@@ -1,9 +1,9 @@
 import React from "react";
 import loadable from "@loadable/component";
-import {Loading} from "./component/Loading";
+import {PageLoader} from "./component/PageLoader";
 
 const defaultLoadableOptions = {
-    fallback: <Loading/>
+    fallback: <PageLoader/>
 };
 
 export const Homepage = () => {

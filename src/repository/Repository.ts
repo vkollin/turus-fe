@@ -17,10 +17,6 @@ export class Repository {
         }
     }
 
-    private axiosDefaultOptions = (): AxiosRequestConfig => {
-        return {}
-    }
-
     protected get<ReturnType>(url: string): Promise<ReturnType> {
         return new Promise((resolve, reject) => {
             this.axios
@@ -42,4 +38,8 @@ export class Repository {
                 .catch(e => reject(e));
         });
     };
+
+    private axiosDefaultOptions = (): AxiosRequestConfig => {
+        return {}
+    }
 }
