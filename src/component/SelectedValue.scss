@@ -39,7 +39,7 @@ $wrapperSpacingVertical: 7px;
 }
 
 .Icon {
-    @extend %icon-cancel;
+    @include iconCancel;
     position: absolute;
     right:    $wrapperSpacingVertical;
 }
