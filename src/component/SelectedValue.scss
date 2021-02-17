@@ -3,23 +3,23 @@
 $wrapperSpacingVertical: 7px;
 
 .Wrapper {
-    @include boxShadow(2);
+    @include boxShadow(1);
     align-items:   center;
     background:    $grey;
-    border:        1px solid $accentColor;
+    border:        1px solid $greyDark;
     border-radius: 3px;
     display:       flex;
     margin:        15px 0;
-    padding:       5px $wrapperSpacingVertical;
+    padding:       8px $wrapperSpacingVertical;
     position:      relative;
 }
 
 .Image {
     align-items:     center;
     display:         flex;
-    height:          2rem;
+    height:          20px;
     justify-content: center;
-    width:           2rem;
+    width:           20px;
 
     img {
         height: 100%;
@@ -28,6 +28,9 @@ $wrapperSpacingVertical: 7px;
 }
 
 .Label {
+    align-items: center;
+    display:     flex;
+    height:      20px;
     margin-left: 0;
 
     .Image + & {
@@ -36,7 +39,7 @@ $wrapperSpacingVertical: 7px;
 }
 
 .Icon {
-    font-family: monospace;
-    position:    absolute;
-    right:       $wrapperSpacingVertical;
+    @extend %icon-cancel;
+    position: absolute;
+    right:    $wrapperSpacingVertical;
 }

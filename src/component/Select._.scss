@@ -1,0 +1,74 @@
+@import "/src/sass/common";
+
+.Select {
+
+    &.Select-Focused {
+        background-color: rgba(white, 0.95);
+        height:           100%;
+        left:             0;
+        padding:          20px;
+        position:         fixed;
+        top:              0;
+        width:            100%;
+        z-index:          1;
+
+        .Select__control {
+            background-color: transparent;
+        }
+
+        .Select__dropdown-indicator {
+            display: none;
+        }
+    }
+
+    .Select__indicator-separator {
+        display: none;
+    }
+
+    .Select__dropdown-indicator {
+        svg {
+            fill: $accentColor;
+        }
+    }
+
+    .Select__control {
+        background-color: $backgroundColor;
+        border-color:     rgba($greyDark, .9);
+    }
+
+    .Select__control--is-focused {
+        border-color: rgba($accentColor, .8);
+        width:        100%;
+    }
+
+    .Select__menu {
+        border:        0;
+        border-radius: 0;
+        box-shadow:    none;
+        left:          0;
+        margin:        10px 0 0;
+        top:           auto;
+        width:         100%;
+    }
+
+    .Select__menu-list {
+        max-height: none;
+        padding:    0;
+
+        .Select__option {
+
+            border-top: 1px solid $grey;
+
+            &.Select__option--is-focused {
+                background-color: rgba($grey, .5);
+                color:            $accentColor;
+            }
+        }
+    }
+
+    .Select__loading-indicator {
+        span {
+            background-color: $accentColor;
+        }
+    }
+}

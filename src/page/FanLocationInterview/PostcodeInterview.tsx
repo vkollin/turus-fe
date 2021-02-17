@@ -1,5 +1,5 @@
 import React from "react";
-import {PageContent} from "../../component/PageContent";
+import {Section} from "../../component/Section";
 import {Select} from "../../component/Select";
 import {OptionTypeBase} from "react-select";
 import {useDispatch} from "react-redux";
@@ -9,15 +9,13 @@ import {Postcode} from "../../model/Postcode";
 import {SelectedValue} from "../../component/SelectedValue";
 
 export const PostcodeInterview = (props: { onSubmit: ((postcode: Postcode | null) => void), value: Postcode | null }) => {
-    return <PageContent>
-        <h1>PLZ Auswahl</h1>
-
+    return <Section title={"PLZ"}>
         {
-            props.value === null
+            props.value === null || props.value.code === null
                 ? <SelectPostcode onSubmit={props.onSubmit}/>
                 : <ShowPostcode value={props.value} onSubmit={props.onSubmit}/>
         }
-    </PageContent>
+    </Section>
 }
 
 const ShowPostcode = (props: { onSubmit: ((postcode: Postcode | null) => void), value: Postcode }) => {

@@ -3,10 +3,13 @@
 @import "common";
 
 body {
-    background:  $backgroundColor;
-    font-family: "Open Sans", sans-serif;
-    font-size:   14px;
-    font-weight: 400;
+    background:              $backgroundColor;
+    color:                   $fontColor;
+    font-family:             "Open Sans", sans-serif;
+    font-size:               14px;
+    -webkit-font-smoothing:  antialiased;
+    font-weight:             400;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 img {

@@ -1,7 +1,8 @@
-import React, {CSSProperties} from "react";
+import React, {CSSProperties, useState} from "react";
 import AsyncSelect from "react-select/async";
 import {OptionProps, OptionTypeBase, StylesConfig} from "react-select";
 import {color} from "../style/color";
+import './Select._.scss';
 
 type Props<Value> = {
     onValueChange: (newValue: Value | null) => void,
@@ -10,12 +11,20 @@ type Props<Value> = {
 };
 
 export function Select<Value>(props: Props<Value>): JSX.Element {
+    const [isFocused, setIsFocused] = useState(false);
     const handleLoadOptions = async (inputValue: string): Promise<ReadonlyArray<OptionTypeBase>> => {
         return await props.loadOptions(inputValue)
     }
 
+    const classNames = ["Select"]
+
+    if (isFocused) {
+        classNames.push("Select-Focused");
+    }
+
     return <AsyncSelect
-        styles={styleSelect}
+        className={classNames.join(' ')}
+        classNamePrefix={"Select"}
         loadOptions={handleLoadOptions}
         onChange={(newValue) => {
             const value = newValue?.value;
@@ -25,6 +34,12 @@ export function Select<Value>(props: Props<Value>): JSX.Element {
             } else {
                 props.onValueChange(null);
             }
+        }}
+        onFocus={() => {
+            setIsFocused(true)
+        }}
+        onBlur={() => {
+            setIsFocused(false)
         }}
         isMulti={false}
     />

@@ -7,7 +7,6 @@ export const SelectedValue = (props: { src?: string | null, label: string, onCli
     const hasOnClick = typeof props.onClick !== 'undefined';
     let onClick = () => {
     };
-    const icon = 'x';
 
     if (hasOnClick) {
         onClick = props.onClick as () => void
@@ -23,6 +22,6 @@ export const SelectedValue = (props: { src?: string | null, label: string, onCli
     >
         {image}
         <div className={s.Label}>{props.label}</div>
-        {hasOnClick && <span className={s.Icon}>{icon}</span>}
+        {hasOnClick && <span className={s.Icon}/>}
     </div>
 }

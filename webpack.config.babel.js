@@ -31,7 +31,24 @@ module.exports = (env, argv) => {
         module: {
             rules: [
                 {
-                    test: /.*\.scss$/,
+                    test: /\_\.scss$/,
+                    include: assetsDir,
+                    use: [
+                        {loader: MiniCssExtractPlugin.loader, options: {esModule: false}},
+                        {
+                            loader: "css-loader",
+                            options: {
+                                importLoaders: 1,
+                                modules: {localIdentName: "[local]"},
+                            },
+                        },
+                        "resolve-url-loader",
+                        {loader: "sass-loader", options: {sourceMap: isDevelopment}},
+                        "postcss-loader"
+                    ],
+                },
+                {
+                    test: /(?<!\._)\.scss$/,
                     include: assetsDir,
                     use: [
                         {loader: MiniCssExtractPlugin.loader, options: {esModule: false}},
