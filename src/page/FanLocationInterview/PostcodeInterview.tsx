@@ -6,6 +6,7 @@ import {useDispatch} from "react-redux";
 import {ThunkDispatchType} from "../../type/thunk";
 import {searchPostcodes} from "../../store/action/searchPostcodes";
 import {Postcode} from "../../model/Postcode";
+import {SelectedValue} from "../../component/SelectedValue";
 
 export const PostcodeInterview = (props: { onSubmit: ((postcode: Postcode | null) => void), value: Postcode | null }) => {
     return <PageContent>
@@ -20,13 +21,12 @@ export const PostcodeInterview = (props: { onSubmit: ((postcode: Postcode | null
 }
 
 const ShowPostcode = (props: { onSubmit: ((postcode: Postcode | null) => void), value: Postcode }) => {
-    return <div
+    return <SelectedValue
+        label={props.value.code}
         onClick={() => {
             props.onSubmit(null)
         }}
-    >
-        {props.value.code}
-    </div>
+    />
 }
 
 const SelectPostcode = (props: { onSubmit: ((postcode: Postcode) => void) }) => {

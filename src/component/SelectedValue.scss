@@ -1,0 +1,42 @@
+@import "/src/sass/common";
+
+$wrapperSpacingVertical: 7px;
+
+.Wrapper {
+    @include boxShadow(2);
+    align-items:   center;
+    background:    $grey;
+    border:        1px solid $accentColor;
+    border-radius: 3px;
+    display:       flex;
+    margin:        15px 0;
+    padding:       5px $wrapperSpacingVertical;
+    position:      relative;
+}
+
+.Image {
+    align-items:     center;
+    display:         flex;
+    height:          2rem;
+    justify-content: center;
+    width:           2rem;
+
+    img {
+        height: 100%;
+        width:  auto;
+    }
+}
+
+.Label {
+    margin-left: 0;
+
+    .Image + & {
+        margin-left: .5rem;
+    }
+}
+
+.Icon {
+    font-family: monospace;
+    position:    absolute;
+    right:       $wrapperSpacingVertical;
+}

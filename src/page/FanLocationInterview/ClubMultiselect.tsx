@@ -6,6 +6,7 @@ import {useDispatch} from "react-redux";
 import {searchClubs} from "../../store/action/searchClubs";
 import {ThunkDispatchType} from "../../type/thunk";
 import {usePrevious} from "../../hook/usePrevious";
+import {SelectedValue} from "../../component/SelectedValue";
 
 export const ClubMultiSelect = (props: { onSubmit: ((clubs: Club[]) => void), selectedClubs: Club[] }) => {
     const [selectedClubs, setSelectedClubs] = useState(props.selectedClubs);
@@ -28,19 +29,19 @@ export const ClubMultiSelect = (props: { onSubmit: ((clubs: Club[]) => void), se
     };
 
     return <>
-        {selectedClubs.map(c => <SelectedClub key={c.id} club={c} onDelete={handleDeletion}/>)}
         <ClubSelection key={JSON.stringify(selectedClubs)} selectedClubs={selectedClubs} onSelect={handleSelect}/>
+        {selectedClubs.map(c => <SelectedClub key={c.id} club={c} onDelete={handleDeletion}/>)}
     </>
 }
 
 const SelectedClub = (props: { club: Club, onDelete: (club: Club) => void }) => {
-    return <div
+    return <SelectedValue
+        label={props.club.name}
+        src={props.club.icon}
         onClick={() => {
             props.onDelete(props.club)
         }}
-    >
-        {props.club.name}
-    </div>
+    />
 };
 
 const ClubSelection = (props: { onSelect: (club: Club) => void, selectedClubs: Club[] }) => {

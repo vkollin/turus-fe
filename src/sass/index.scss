@@ -1,10 +1,14 @@
+@import "vendor";
+
 @import "common";
 
-@import "~normalize.css/normalize.css";
-
 body {
-    background:  #f3f3f3;
+    background:  $backgroundColor;
     font-family: "Open Sans", sans-serif;
-    font-size:   13px;
+    font-size:   14px;
     font-weight: 400;
+}
+
+img {
+    display: block;
 }
