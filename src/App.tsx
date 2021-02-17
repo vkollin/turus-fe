@@ -5,6 +5,7 @@ import {store} from "./store";
 import {Routes} from "./type/routes";
 import {FanLocationInterview} from "./routes";
 import {PageWrapper} from "./component/PageWrapper";
+import {Footer} from "./component/Footer";
 
 export class App extends React.Component {
     render() {
@@ -17,6 +18,7 @@ export class App extends React.Component {
 
                         <Route path='*'>404</Route>
                     </Switch>
+                    <Footer/>
                 </PageWrapper>
             </Router>
         </Provider>

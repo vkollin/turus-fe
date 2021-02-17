@@ -1,0 +1,28 @@
+@import "/src/sass/common";
+
+.Footer {
+    align-items:     center;
+    bottom:          0;
+    color:           $greyDarker;
+    display:         flex;
+    font-size:       12px;
+    height:          $footerHeight;
+    justify-content: center;
+    left:            0;
+    position:        absolute;
+    width:           100%;
+
+    .Logo {
+        @include defaultTransition;
+        $logoHeight: 30px;
+
+        fill:        $greyDarker;
+        height:      $logoHeight;
+        width:       $logoHeight * 2.729559748427673;
+
+        &:hover {
+            @include defaultTransition;
+            fill: $accentColor;
+        }
+    }
+}

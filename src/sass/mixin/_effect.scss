@@ -11,3 +11,7 @@
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15 * $opacityMultiplicator), 0 20px 40px rgba(0, 0, 0, 0.3 * $opacityMultiplicator);
     }
 }
+
+@mixin defaultTransition() {
+    transition: all 300ms ease-in-out;
+}

@@ -1,4 +1,8 @@
+@import "/src/sass/common";
+
 .Wrapper {
-    margin:    0 auto;
-    max-width: 500px;
+    margin:         0 auto;
+    max-width:      500px;
+    min-height:     100vh;
+    padding-bottom: $footerHeight;
 }
