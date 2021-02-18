@@ -1,0 +1,21 @@
+@import "/src/sass/variable/color";
+@import "/src/sass/mixin/effect";
+
+@mixin Button {
+    @include defaultTransition;
+    @include boxShadow(1);
+    cursor:        pointer;
+    outline:       none;
+    border:        1px solid $greyDark;
+    background:    $grey;
+    color:         $accentColor;
+    padding:       10px 15px;
+    border-radius: 3px;
+
+    &:hover {
+        @include defaultTransition;
+        @include boxShadow(2);
+        background: $accentColor;
+        color:      white;
+    }
+}

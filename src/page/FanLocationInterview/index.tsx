@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {useUser} from "../../hook/useUser";
 import {PostcodeInterview} from "./PostcodeInterview";
 import {ClubInterview} from "./ClubInterview";
@@ -9,9 +9,13 @@ import {connect} from "react-redux";
 import {RootStore} from "../../store";
 import {UserHashType} from "../../model/User";
 import {PageLoader} from "../../component/PageLoader";
+import s from "./index.scss";
+import {ThankYou} from "./ThankYou";
+import {PageContent} from "../../component/PageContent";
 
 const FanLocationInterview = (props: { hash: UserHashType }): JSX.Element => {
-    const [isLoading, user, setPostcode, setClubs, setEnemies] = useUser(props.hash)
+    const [isLoading, user, setPostcode, setClubs, setEnemies] = useUser(props.hash);
+    const [showThankYou, setShowThankYou] = useState(false);
 
     if (isLoading || user === null) {
         return <PageLoader/>
@@ -29,10 +33,29 @@ const FanLocationInterview = (props: { hash: UserHashType }): JSX.Element => {
         setEnemies(clubs)
     }
 
+    const handleNextClick = () => {
+        setShowThankYou(true);
+    }
+
+    if (showThankYou) {
+        return <ThankYou/>
+    }
+
     return <>
         <PostcodeInterview onSubmit={handlePostcodeUpdate} value={user.postcode}/>
         <ClubInterview onSubmit={handleClubsUpdate} clubs={user.clubs}/>
         <EnemyInterview onSubmit={handleEnemiesUpdate} clubs={user.enemies}/>
+
+        <PageContent className={s.ButtonWrapper}>
+            <span
+                className={s.NextButton}
+                onClick={() => {
+                    handleNextClick()
+                }}
+            >
+                Weiter
+            </span>
+        </PageContent>
     </>
 }
 

@@ -1,0 +1,10 @@
+@import "/src/sass/common";
+
+.NextButton {
+    @include Button();
+}
+
+.ButtonWrapper {
+    display:         flex;
+    justify-content: flex-end;
+}
