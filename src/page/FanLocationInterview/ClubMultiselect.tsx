@@ -1,12 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Club} from "../../model/Club";
 import {OptionTypeBase} from "react-select";
 import {Select} from "../../component/Select";
 import {useDispatch} from "react-redux";
-import {searchClubs} from "../../store/action/searchClubs";
 import {ThunkDispatchType} from "../../type/thunk";
 import {usePrevious} from "../../hook/usePrevious";
 import {SelectedValue} from "../../component/SelectedValue";
+import {searchClubs} from "../../store/action/searchClubs";
+
+const SEARCH_TIMEOUT = 350;
 
 export const ClubMultiSelect = (props: { onSubmit: ((clubs: Club[]) => void), selectedClubs: Club[] }) => {
     const [selectedClubs, setSelectedClubs] = useState(props.selectedClubs);
@@ -47,21 +49,28 @@ const SelectedClub = (props: { club: Club, onDelete: (club: Club) => void }) => 
 const ClubSelection = (props: { onSelect: (club: Club) => void, selectedClubs: Club[] }) => {
 
     const dispatch = useDispatch<ThunkDispatchType>();
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const handleLoadOptions = (inputValue: string): Promise<OptionTypeBase[]> => {
         return new Promise(((resolve, reject) => {
-            if (inputValue.length < 2) {
-                reject();
-                return
+            if (timeoutRef.current !== null) {
+                clearTimeout(timeoutRef.current);
             }
 
-            dispatch(searchClubs(inputValue, props.selectedClubs))
-                .then(data => {
-                    resolve(data.map(d => ({value: d, label: d.name})))
-                })
-                .catch(() =>
-                    reject()
-                )
+            timeoutRef.current = setTimeout(() => {
+                if (inputValue.length < 2) {
+                    reject();
+                    return
+                }
+
+                dispatch(searchClubs(inputValue, props.selectedClubs))
+                    .then(data => {
+                        resolve(data.map(d => ({value: d, label: d.name})))
+                    })
+                    .catch(() =>
+                        reject()
+                    )
+            }, SEARCH_TIMEOUT)
         }))
     }
 
