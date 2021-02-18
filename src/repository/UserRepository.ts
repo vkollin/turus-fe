@@ -20,7 +20,7 @@ export class UserRepository extends Repository {
             throw new Error('The given user has no hash. only identifiable users are allowed to be passed to this method');
         }
 
-        const response = await this.post<UpdateUserRequest, UserResponse>(url, {
+        const response = await this.post<UpdateUserRequest, UserResponse>(url, null, {
             hash: user.hash,
             postcode: user.postcode?.code ?? null,
             clubs: user.clubs.map(c => c.id),

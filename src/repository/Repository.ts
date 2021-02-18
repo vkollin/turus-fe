@@ -1,5 +1,7 @@
 import {AxiosRequestConfig, AxiosResponse, AxiosStatic} from "axios";
 
+export type QueryParamsType = Record<string, string> | null;
+
 export class Repository {
     constructor(
         private readonly apiUrl: string,
@@ -17,10 +19,27 @@ export class Repository {
         }
     }
 
-    protected get<ReturnType>(url: string): Promise<ReturnType> {
+    private buildUrl(path: string, query?: QueryParamsType): URL {
+        const url = new URL(`${this.apiUrl}${path}`);
+
+        if (query) {
+            for (const [name, value] of Object.entries(query)) {
+                url.searchParams.append(name, value);
+            }
+        }
+
+        url.search = decodeURIComponent(url.search);
+
+        return url
+    }
+
+    protected get<ReturnType>(path: string, query?: QueryParamsType): Promise<ReturnType> {
+
+        const url = this.buildUrl(path, query);
+
         return new Promise((resolve, reject) => {
             this.axios
-                .get<ReturnType>(`${this.apiUrl}${url}`, this.axiosDefaultOptions())
+                .get<ReturnType>(`${url}`, this.axiosDefaultOptions())
                 .then(rawResponse => {
                     Repository.handleResponse<ReturnType>(rawResponse, resolve, reject)
                 })
@@ -28,10 +47,10 @@ export class Repository {
         });
     };
 
-    protected post<PayloadType, ReturnType>(url: string, payload: PayloadType | null = null): Promise<ReturnType> {
+    protected post<PayloadType, ReturnType>(path: string, query?: QueryParamsType, payload: PayloadType | null = null): Promise<ReturnType> {
         return new Promise((resolve, reject) => {
             this.axios
-                .post<ReturnType>(`${this.apiUrl}${url}`, payload, this.axiosDefaultOptions())
+                .post<ReturnType>(`${this.apiUrl}${path}`, payload, this.axiosDefaultOptions())
                 .then(rawResponse => {
                     Repository.handleResponse<ReturnType>(rawResponse, resolve, reject)
                 })
