@@ -1,0 +1,10 @@
+@import "/src/sass/common";
+
+.BackButton {
+    @include Button();
+}
+
+.ButtonWrapper {
+    display:         flex;
+    justify-content: flex-start;
+}

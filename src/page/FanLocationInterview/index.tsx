@@ -38,7 +38,11 @@ const FanLocationInterview = (props: { hash: UserHashType }): JSX.Element => {
     }
 
     if (showThankYou) {
-        return <ThankYou/>
+        return <ThankYou
+            onBack={() => {
+                setShowThankYou(false)
+            }}
+        />
     }
 
     return <>
