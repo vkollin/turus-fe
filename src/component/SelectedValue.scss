@@ -12,6 +12,15 @@ $wrapperSpacingVertical: 7px;
     margin:        15px 0;
     padding:       8px $wrapperSpacingVertical;
     position:      relative;
+
+    &:hover {
+        cursor: pointer;
+
+        .Icon {
+            @include defaultTransition;
+            color: $accentColor;
+        }
+    }
 }
 
 .Image {
@@ -39,6 +48,7 @@ $wrapperSpacingVertical: 7px;
 }
 
 .Icon {
+    @include defaultTransition;
     @include iconCancel;
     position: absolute;
     right:    $wrapperSpacingVertical;

@@ -2,6 +2,13 @@
 
 .Select {
 
+    &:hover {
+
+        .Select__control {
+            border-color: $accentColor;
+        }
+    }
+
     &.Select-Focused {
         background-color: rgba(white, 0.95);
         height:           100%;
@@ -34,6 +41,7 @@
     .Select__control {
         background-color: $backgroundColor;
         border-color:     rgba($greyDark, .9);
+        cursor:           pointer;
     }
 
     .Select__control--is-focused {
@@ -58,6 +66,7 @@
         .Select__option {
 
             border-top: 1px solid $grey;
+            cursor:     pointer;
 
             &.Select__option--is-focused {
                 background-color: rgba($grey, .5);

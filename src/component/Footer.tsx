@@ -1,5 +1,6 @@
 import React from "react";
 import s from "./Footer.scss";
+// @ts-ignore
 import logo from "/src/image/devultras.svg"
 
 export const Footer = () => {
