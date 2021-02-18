@@ -9,14 +9,25 @@ import {SelectedValue} from "../../component/SelectedValue";
 import {searchClubs} from "../../store/action/searchClubs";
 
 const SEARCH_TIMEOUT = 350;
+const MANIPULATION_TIMEOUT = 500;
 
 export const ClubMultiSelect = (props: { onSubmit: ((clubs: Club[]) => void), selectedClubs: Club[] }) => {
     const [selectedClubs, setSelectedClubs] = useState(props.selectedClubs);
     const previousSelectedClubs = usePrevious<Club[]>(selectedClubs)
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     useEffect(() => {
         if (typeof previousSelectedClubs !== "undefined") {
-            props.onSubmit(selectedClubs);
+            if (timeoutRef.current !== null) {
+                clearTimeout(timeoutRef.current);
+            }
+
+            timeoutRef.current = setTimeout(
+                () => {
+                    props.onSubmit(selectedClubs);
+
+                }, MANIPULATION_TIMEOUT
+            );
         }
     }, [selectedClubs]);
 
@@ -57,20 +68,24 @@ const ClubSelection = (props: { onSelect: (club: Club) => void, selectedClubs: C
                 clearTimeout(timeoutRef.current);
             }
 
-            timeoutRef.current = setTimeout(() => {
-                if (inputValue.length < 2) {
-                    reject();
-                    return
-                }
+            if (inputValue.length < 3) {
+                reject();
+                return
+            }
 
-                dispatch(searchClubs(inputValue, props.selectedClubs))
-                    .then(data => {
-                        resolve(data.map(d => ({value: d, label: d.name})))
-                    })
-                    .catch(() =>
-                        reject()
-                    )
-            }, SEARCH_TIMEOUT)
+            timeoutRef.current = setTimeout(
+                () => {
+
+                    dispatch(searchClubs(inputValue, props.selectedClubs))
+                        .then(data => {
+                            resolve(data.map(d => ({value: d, label: d.name})))
+                        })
+                        .catch(() =>
+                            reject()
+                        )
+                },
+                SEARCH_TIMEOUT
+            )
         }))
     }
 
