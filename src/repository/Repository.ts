@@ -19,20 +19,6 @@ export class Repository {
         }
     }
 
-    private buildUrl(path: string, query?: QueryParamsType): URL {
-        const url = new URL(`${this.apiUrl}${path}`);
-
-        if (query) {
-            for (const [name, value] of Object.entries(query)) {
-                url.searchParams.append(name, value);
-            }
-        }
-
-        url.search = decodeURIComponent(url.search);
-
-        return url
-    }
-
     protected get<ReturnType>(path: string, query?: QueryParamsType): Promise<ReturnType> {
 
         const url = this.buildUrl(path, query);
@@ -57,6 +43,20 @@ export class Repository {
                 .catch(e => reject(e));
         });
     };
+
+    private buildUrl(path: string, query?: QueryParamsType): URL {
+        const url = new URL(`${this.apiUrl}${path}`);
+
+        if (query) {
+            for (const [name, value] of Object.entries(query)) {
+                url.searchParams.append(name, value);
+            }
+        }
+
+        url.search = decodeURIComponent(url.search);
+
+        return url
+    }
 
     private axiosDefaultOptions = (): AxiosRequestConfig => {
         return {}

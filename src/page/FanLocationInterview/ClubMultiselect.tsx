@@ -26,7 +26,8 @@ export const ClubMultiSelect = (props: { onSubmit: ((clubs: Club[]) => void), se
                 () => {
                     props.onSubmit(selectedClubs);
 
-                }, MANIPULATION_TIMEOUT
+                },
+                MANIPULATION_TIMEOUT
             );
         }
     }, [selectedClubs]);
