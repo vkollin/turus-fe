@@ -49,6 +49,7 @@ const SelectPostcode = (props: { onSubmit: ((postcode: Postcode) => void) }) => 
 
     return <Select<Postcode>
         loadOptions={handleLoadOptions}
+        placeholder="PLZ suchen"
         onValueChange={(newPostcode => {
             if (newPostcode instanceof Postcode) {
                 props.onSubmit(newPostcode)

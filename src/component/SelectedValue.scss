@@ -5,7 +5,7 @@ $wrapperSpacingVertical: 7px;
 .Wrapper {
     @include boxShadow(1);
     align-items:   center;
-    background:    $grey;
+    background:    $greyLighter;
     border:        1px solid $greyDark;
     border-radius: 3px;
     display:       flex;
@@ -14,7 +14,8 @@ $wrapperSpacingVertical: 7px;
     position:      relative;
 
     &:hover {
-        cursor: pointer;
+        background: $greyLight;
+        cursor:     pointer;
 
         .Icon {
             @include defaultTransition;

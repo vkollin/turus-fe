@@ -21,6 +21,8 @@
 
         .Select__control {
             background-color: transparent;
+            margin:           0 auto;
+            max-width:        $maxPageWidth;
         }
 
         .Select__dropdown-indicator {
@@ -54,7 +56,7 @@
         border-radius: 0;
         box-shadow:    none;
         left:          0;
-        margin:        10px 0 0;
+        margin:        15px 0 0;
         top:           auto;
         width:         100%;
     }
@@ -64,12 +66,16 @@
         padding:    0;
 
         .Select__option {
+            border-top: 1px solid $greyLighter;
 
-            border-top: 1px solid $grey;
-            cursor:     pointer;
+            div {
+                cursor:    pointer;
+                margin:    0 auto;
+                max-width: $maxPageWidth;
+            }
 
             &.Select__option--is-focused {
-                background-color: rgba($grey, .5);
+                background-color: rgba($greyLighter, .5);
                 color:            $accentColor;
             }
         }

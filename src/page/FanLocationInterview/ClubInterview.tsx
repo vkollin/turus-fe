@@ -4,7 +4,7 @@ import {Section} from "../../component/Section";
 import {ClubMultiSelect} from "./ClubMultiselect";
 
 export const ClubInterview = (props: { onSubmit: ((clubs: Club[]) => void), clubs: Club[] }) => {
-    return <Section title={'Klub Auswahl'}>
+    return <Section title={'Dein Verein'}>
         <ClubMultiSelect selectedClubs={props.clubs} onSubmit={props.onSubmit}/>
     </Section>
 }

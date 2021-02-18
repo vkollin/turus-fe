@@ -92,6 +92,7 @@ const ClubSelection = (props: { onSelect: (club: Club) => void, selectedClubs: C
 
     return <Select<Club>
         loadOptions={handleLoadOptions}
+        placeholder="Verein suchen"
         onValueChange={(newValue => {
             if (newValue !== null) {
                 props.onSelect(newValue)
