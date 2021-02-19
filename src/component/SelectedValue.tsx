@@ -13,7 +13,7 @@ export const SelectedValue = (props: { src?: string | null, label: string, onCli
     }
 
     if (props.src) {
-        image = <div className={s.Image}><img src={props.src} alt=""/></div>
+        image = <div className={s.Image}><img src={props.src} alt={props.src}/></div>
     }
 
     return <div
