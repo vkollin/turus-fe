@@ -6,7 +6,7 @@ import {createClubFromClubResponse} from "../factory/club";
 export class ClubRepository extends Repository {
 
     search = (value: string, exclude: Club[] = []): Promise<Club[]> => {
-        const url = `/api/club/search/${value}`;
+        const url = `/api/club/search/${encodeURIComponent(value)}`;
         const query: QueryParamsType = {};
 
         const excludeParam = exclude.map(c => c.id).join(',');
