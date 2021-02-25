@@ -99,6 +99,7 @@ module.exports = (env, argv) => {
             new CopyPlugin({
                 patterns: [
                     {from: path.join(assetsDir, '.htaccess'), to: outputDir},
+                    {from: path.join(assetsDir, 'favicon.ico'), to: outputDir},
                 ],
             }),
         ],
