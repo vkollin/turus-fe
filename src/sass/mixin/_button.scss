@@ -4,13 +4,14 @@
 @mixin Button {
     @include defaultTransition;
     @include boxShadow(1);
-    cursor:        pointer;
-    outline:       none;
-    border:        1px solid $greyDark;
-    background:    $greyLighter;
-    color:         $accentColor;
-    padding:       10px 15px;
-    border-radius: 3px;
+    cursor:          pointer;
+    outline:         none;
+    border:          1px solid $greyDark;
+    background:      $greyLighter;
+    color:           $accentColor;
+    padding:         10px 15px;
+    border-radius:   3px;
+    text-decoration: none;
 
     &:hover {
         @include defaultTransition;
