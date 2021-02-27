@@ -8,6 +8,6 @@ export default (): JSX.Element => {
     return <PageContent>
         <h1>Umfrage</h1>
         <p>[Platzhalter]</p>
-        <Link className={s.Button} to={Routes.FAN_LOCATION_INTERVIEW}>Link zur Umfrage</Link>
+        <Link className={s.Button} to={Routes.FAN_LOCATION_INTERVIEW}>Zur Umfrage</Link>
     </PageContent>
 }
