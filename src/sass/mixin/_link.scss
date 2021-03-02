@@ -1,0 +1,13 @@
+@import "/src/sass/variable/color";
+@import "/src/sass/mixin/effect";
+
+@mixin Link {
+    @include defaultTransition;
+    text-decoration: none;
+    color:           $accentColor;
+
+    &:hover {
+        @include defaultTransition;
+        color: $primaryColor;
+    }
+}
