@@ -6,8 +6,8 @@ import {Shape} from "../model/Shape";
 
 export class MapRepository extends Repository {
 
-    getShapesForBounds = (bounds: Bounds) => {
-        const url = `/api/map/data/${bounds.northEast.toString()}/${bounds.southWest.toString()}`;
+    getShapesForBounds = (bounds: Bounds, zoom = 1) => {
+        const url = `/api/map/data/${bounds.northEast.toString()}/${bounds.southWest.toString()}/${zoom}`;
 
         return new Promise<Shape[]>(((resolve, reject) => {
             this

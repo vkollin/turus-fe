@@ -9,12 +9,13 @@ import {Shape} from "../../model/Shape";
 
 export default (): JSX.Element => {
     const [shapes, setShapes] = useState<Shape[]>([]);
+    const [zoom] = useState(1);
     const dispatch = useDispatch<ThunkDispatchType>()
 
     const onMapChange = (leafletBounds: LatLngBounds) => {
         const bounds = createBoundsFromLeafletBounds(leafletBounds);
 
-        dispatch(fetchShapes(bounds)).then((shapes => {
+        dispatch(fetchShapes(bounds, zoom)).then((shapes => {
             setShapes(shapes)
         }));
     }
