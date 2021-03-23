@@ -1,0 +1,14 @@
+@import "/src/sass/common";
+
+.ButtonWrapper {
+    display:         flex;
+    justify-content: center;
+    margin-bottom:   1rem;
+}
+
+.Button {
+    @include Button();
+    display: inline-block;
+    margin:  .5rem 0;
+}
+

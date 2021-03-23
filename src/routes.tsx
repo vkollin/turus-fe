@@ -21,3 +21,11 @@ export const FanLocationInterview = () => {
 
     return <Component/>;
 };
+
+export const Map = () => {
+    const Component = loadable(() => import("./page/Map"), {
+        ...defaultLoadableOptions,
+    });
+
+    return <Component/>;
+};
