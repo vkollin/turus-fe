@@ -1,6 +1,7 @@
 import {LatLng} from "./Bounds";
 import {Map, Polygon as LeafletPolygon} from "leaflet";
 import {Leaflet} from "../bridge/Leaflet";
+import {Club} from "./Club";
 
 export class Shape {
     leafletPolygon?: LeafletPolygon;
@@ -9,6 +10,7 @@ export class Shape {
         readonly postcode: string,
         readonly name: string | null,
         readonly polygon: Polygon | null,
+        readonly results: Result[]
     ) {
     }
 
@@ -31,5 +33,10 @@ export class Polygon {
     constructor(
         readonly rings: LatLng[][],
     ) {
+    }
+}
+
+export class Result {
+    constructor(readonly club: Club, readonly  count: number) {
     }
 }
