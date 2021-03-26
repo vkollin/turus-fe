@@ -61,6 +61,7 @@
   },
   "dependencies": {
     "@loadable/component": "^5.14.1",
+    "@turf/turf": "^6.3.0",
     "axios": "^0.21.1",
     "js-cookie": "^2.2.1",
     "leaflet": "^1.7.1",

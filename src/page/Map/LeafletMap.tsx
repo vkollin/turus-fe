@@ -6,7 +6,7 @@ import {Shape} from "../../model/Shape";
 import {PolygonTooltip} from "../../component/PolygonTooltip";
 import {renderToString} from "react-dom/server";
 
-export const LeafletMap = (props: { onChange: (bounds: LatLngBounds) => void, shapes: Shape[] }): JSX.Element => {
+export const LeafletMap = (props: { onChange: (bounds: LatLngBounds, zoom: number) => void, shapes: Shape[] }): JSX.Element => {
     const map = useRef<Map | null>(null)
     const [shapes, setShapes] = useState<Shape[]>([])
 
@@ -14,7 +14,7 @@ export const LeafletMap = (props: { onChange: (bounds: LatLngBounds) => void, sh
         const leafletMap = Leaflet.map("mapId").setView([51.1642292, 10.4541194], 6);
 
         leafletMap.on('moveend zoomend', () => {
-            props.onChange(leafletMap.getBounds())
+            props.onChange(leafletMap.getBounds(), leafletMap.getZoom())
         })
 
         map.current = leafletMap;
@@ -29,7 +29,7 @@ export const LeafletMap = (props: { onChange: (bounds: LatLngBounds) => void, sh
             })
             .addTo(map.current);
 
-        props.onChange(leafletMap.getBounds())
+        props.onChange(leafletMap.getBounds(), leafletMap.getZoom())
     }, [])
 
     useEffect(() => {
