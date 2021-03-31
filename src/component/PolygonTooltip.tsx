@@ -1,5 +1,6 @@
 import React from "react";
-import {Shape} from "../model/Shape";
+import {Result, Shape} from "../model/Shape";
+import s from "./PolygonTooltip.scss";
 
 type PolygonTooltipProps = {
     shape: Shape
@@ -7,10 +8,43 @@ type PolygonTooltipProps = {
 
 export const PolygonTooltip = (props: PolygonTooltipProps): JSX.Element => {
 
-    const results = props.shape.results.map((r) => <div key={r.club.id}>{r.club.name} - {r.count}</div>);
-
-    return <>
+    return <div className={s.Wrapper}>
         <h1>{props.shape.postcode}</h1>
-        {results}
-    </>
+        <TooltipResults results={props.shape.results}/>
+    </div>
+}
+
+const TooltipResults = (props: { results: Result[] }): JSX.Element => {
+    const rows = [
+        <div className={s.ResultsHeader}>
+            <div className={s.ResultsCaption}>
+                <div/>
+                <div>Stimmen</div>
+                <div>Klub</div>
+            </div>
+        </div>
+    ];
+
+    let previousCount = null;
+    let ranking = 1;
+
+    for (const result of props.results) {
+        const hasDifferentCountAsPrevious = previousCount !== result.count;
+
+        if (previousCount && hasDifferentCountAsPrevious) {
+            ranking++;
+        }
+
+        const row = <div key={result.club.id} className={s.Result}>
+            <div className={s.Ranking}>{hasDifferentCountAsPrevious && ranking}</div>
+            <div className={s.Count}>{result.count}</div>
+            <div className={s.Club}>{result.club.name}</div>
+        </div>
+
+        rows.push(row);
+
+        previousCount = result.count
+    }
+
+    return <div className={s.Results}>{rows}</div>
 }

@@ -1,0 +1,53 @@
+@import "/src/sass/common";
+
+.Wrapper {
+
+    h1 {
+        color:  $primaryColor;
+        margin: 0 0 5px 0;
+    }
+}
+
+.Results {
+    display: table;
+}
+
+.ResultsHeader {
+    display: table-header-group;
+}
+
+.ResultsCaption {
+    display: table-row;
+
+    & > div {
+        color:       $accentColor;
+        display:     table-cell;
+        font-weight: 700;
+        padding:     0 3px;
+    }
+}
+
+.Result {
+    display: table-row;
+
+    &:nth-child(2n) {
+        background: $greyLight;
+    }
+
+    .Ranking,
+    .Count,
+    .Club {
+        display: table-cell;
+        padding: 2px 3px;
+    }
+
+    .Ranking {
+        color: $primaryColor;
+    }
+
+    .Count {
+    }
+
+    .Club {
+    }
+}

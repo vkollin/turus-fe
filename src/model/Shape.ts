@@ -2,6 +2,9 @@ import {LatLng} from "./Bounds";
 import {Map, Polygon as LeafletPolygon} from "leaflet";
 import {Leaflet} from "../bridge/Leaflet";
 import {Club} from "./Club";
+import style from "../page/Map/LeafletMap.scss"
+
+type Rings = LatLng[][];
 
 export class Shape {
     leafletPolygon?: LeafletPolygon;
@@ -15,8 +18,13 @@ export class Shape {
     }
 
     addPolygonToMap = (map: Map) => {
+        // TODO: move to LeafletMap component
         if (this.polygon !== null) {
-            this.leafletPolygon = Leaflet.polygon(this.polygon.rings);
+            this.leafletPolygon = Leaflet.polygon(this.polygon.rings, {
+                stroke: false,
+                fill: false,
+                className: style.Polygon,
+            });
 
             this.leafletPolygon.addTo(map);
         }
@@ -31,7 +39,7 @@ export class Shape {
 
 export class Polygon {
     constructor(
-        readonly rings: LatLng[][],
+        readonly rings: Rings,
     ) {
     }
 }
