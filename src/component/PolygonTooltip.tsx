@@ -16,7 +16,7 @@ export const PolygonTooltip = (props: PolygonTooltipProps): JSX.Element => {
 
 const TooltipResults = (props: { results: Result[] }): JSX.Element => {
     const rows = [
-        <div className={s.ResultsHeader}>
+        <div key={'header'} className={s.ResultsHeader}>
             <div className={s.ResultsCaption}>
                 <div/>
                 <div>Stimmen</div>

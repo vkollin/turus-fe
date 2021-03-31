@@ -1,14 +1,17 @@
 import React, {useEffect, useRef, useState} from "react";
 import s from './LeafletMap.scss';
+import style from './LeafletMap.scss';
 import {Leaflet} from "../../bridge/Leaflet";
-import {LatLngBounds, Map} from "leaflet";
+import {LatLngBounds, Map, Polygon} from "leaflet";
 import {Shape} from "../../model/Shape";
 import {PolygonTooltip} from "../../component/PolygonTooltip";
 import {renderToString} from "react-dom/server";
 
+
 export const LeafletMap = (props: { onChange: (bounds: LatLngBounds, zoom: number) => void, shapes: Shape[] }): JSX.Element => {
     const map = useRef<Map | null>(null)
     const [shapes, setShapes] = useState<Shape[]>([])
+    const [polygons, setPolygons] = useState<Polygon[]>([])
 
     useEffect(() => {
         const leafletMap = Leaflet.map("mapId").setView([51.1642292, 10.4541194], 6);
@@ -33,8 +36,8 @@ export const LeafletMap = (props: { onChange: (bounds: LatLngBounds, zoom: numbe
     }, [])
 
     useEffect(() => {
-        for (const shape of shapes) {
-            shape.removeFromMap()
+        for (const polygon of polygons) {
+            polygon.remove()
         }
 
         setShapes(props.shapes);
@@ -42,12 +45,33 @@ export const LeafletMap = (props: { onChange: (bounds: LatLngBounds, zoom: numbe
 
     useEffect(() => {
         if (map.current !== null) {
-            for (const shape of shapes) {
-                shape.addPolygonToMap(map.current);
-                shape.leafletPolygon?.bindTooltip(renderToString(<PolygonTooltip shape={shape}/>))
-            }
+            const polygons = addShapesToMap(shapes, map.current);
+
+            setPolygons(polygons);
         }
     }, [shapes]);
 
     return <div id="mapId" className={s.Map}/>
 }
+
+const addShapesToMap = (shapes: Shape[], map: Map): Polygon[] => {
+    const polygons = [];
+
+    for (const shape of shapes) {
+        if (shape.polygon !== null) {
+            const polygon = Leaflet.polygon(shape.polygon.rings, {
+                stroke: false,
+                fill: false,
+                className: style.Polygon,
+            })
+
+            polygon.addTo(map);
+            polygon.bindTooltip(renderToString(<PolygonTooltip shape={shape}/>))
+
+            polygons.push(polygon);
+        }
+    }
+
+    return polygons;
+}
+
