@@ -13,15 +13,15 @@ export const LeafletMap = (props: { onChange: (bounds: LatLngBounds, zoom: numbe
     useEffect(() => {
         const leafletMap = Leaflet.map("mapId").setView([51.1642292, 10.4541194], 6);
 
-        leafletMap.on('moveend zoomend', () => {
+        leafletMap.on('moveend', () => {
             props.onChange(leafletMap.getBounds(), leafletMap.getZoom())
         })
 
         map.current = leafletMap;
 
         Leaflet
-            .tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            .tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
                 maxZoom: 18,
                 id: 'mapbox/streets-v11',
                 tileSize: 512,
