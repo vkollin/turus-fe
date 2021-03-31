@@ -7,6 +7,7 @@ import {Shape} from "../../model/Shape";
 import {PolygonTooltip} from "../../component/PolygonTooltip";
 import {renderToString} from "react-dom/server";
 
+const STADIAMAPS_API_KEY = 'e1aff7e5-fb59-4d0e-a87f-fe6f5d8694cf';
 
 export const LeafletMap = (props: { onChange: (bounds: LatLngBounds, zoom: number) => void, shapes: Shape[] }): JSX.Element => {
     const map = useRef<Map | null>(null)
@@ -23,7 +24,7 @@ export const LeafletMap = (props: { onChange: (bounds: LatLngBounds, zoom: numbe
         map.current = leafletMap;
 
         Leaflet
-            .tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
+            .tileLayer(`https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png?api_key=${STADIAMAPS_API_KEY}`, {
                 attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
                 maxZoom: 18,
                 id: 'mapbox/streets-v11',
