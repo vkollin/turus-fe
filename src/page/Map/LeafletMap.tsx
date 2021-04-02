@@ -24,7 +24,7 @@ export const LeafletMap = (props: { onChange: (bounds: LatLngBounds, zoom: numbe
         map.current = leafletMap;
 
         Leaflet
-            .tileLayer(`https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png?api_key=${STADIAMAPS_API_KEY}`, {
+            .tileLayer(`https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=${STADIAMAPS_API_KEY}`, {
                 attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
                 maxZoom: 18,
                 id: 'mapbox/streets-v11',
