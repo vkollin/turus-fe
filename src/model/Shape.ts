@@ -7,7 +7,7 @@ export class Shape {
     constructor(
         readonly postcode: string,
         readonly name: string | null,
-        readonly polygon: Polygon | null,
+        readonly polygons: Polygon[],
         readonly results: Result[]
     ) {
     }

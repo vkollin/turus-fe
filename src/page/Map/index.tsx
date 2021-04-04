@@ -8,8 +8,10 @@ import {ThunkDispatchType} from "../../type/thunk";
 import {Shape} from "../../model/Shape";
 
 const mapLeafletZoomToZoom = (leafletZoom: number): number => {
-    if (leafletZoom <= 7) {
+    if (leafletZoom <= 6) {
         return 5;
+    } else if (leafletZoom === 7) {
+        return 4;
     } else if (leafletZoom === 8) {
         return 3;
     } else if (leafletZoom === 9) {

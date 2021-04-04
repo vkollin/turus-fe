@@ -59,8 +59,9 @@ const addShapesToMap = (shapes: Shape[], map: Map): Polygon[] => {
     const polygons = [];
 
     for (const shape of shapes) {
-        if (shape.polygon !== null) {
-            const polygon = Leaflet.polygon(shape.polygon.rings, {
+        for (const rawPolygon of shape.polygons) {
+
+            const polygon = Leaflet.polygon(rawPolygon.rings, {
                 stroke: false,
                 fill: false,
                 className: style.Polygon,
