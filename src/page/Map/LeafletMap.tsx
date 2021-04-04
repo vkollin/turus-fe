@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
 import s from './LeafletMap.scss';
-import style from './LeafletMap.scss';
 import {Leaflet} from "../../bridge/Leaflet";
 import {LatLngBounds, Map, Polygon} from "leaflet";
 import {Shape} from "../../model/Shape";
@@ -15,7 +14,7 @@ export const LeafletMap = (props: { onChange: (bounds: LatLngBounds, zoom: numbe
     const [polygons, setPolygons] = useState<Polygon[]>([])
 
     useEffect(() => {
-        const leafletMap = Leaflet.map("mapId").setView([51.1642292, 10.4541194], 6);
+        const leafletMap = Leaflet.map("mapId").setView([52.4465329, 14.0072087], 9);
 
         leafletMap.on('moveend', () => {
             props.onChange(leafletMap.getBounds(), leafletMap.getZoom())
@@ -64,7 +63,7 @@ const addShapesToMap = (shapes: Shape[], map: Map): Polygon[] => {
             const polygon = Leaflet.polygon(rawPolygon.rings, {
                 stroke: false,
                 fill: false,
-                className: style.Polygon,
+                className: s.Polygon,
             })
 
             polygon.addTo(map);

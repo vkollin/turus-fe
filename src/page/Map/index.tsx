@@ -6,6 +6,8 @@ import {useDispatch} from "react-redux";
 import {fetchShapes} from "../../store/action/fetchShapes";
 import {ThunkDispatchType} from "../../type/thunk";
 import {Shape} from "../../model/Shape";
+import s from "./index.scss";
+import {PageLoader} from "../../component/PageLoader";
 
 const mapLeafletZoomToZoom = (leafletZoom: number): number => {
     if (leafletZoom <= 6) {
@@ -25,16 +27,25 @@ const mapLeafletZoomToZoom = (leafletZoom: number): number => {
 
 export default (): JSX.Element => {
     const [shapes, setShapes] = useState<Shape[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
     const dispatch = useDispatch<ThunkDispatchType>()
 
     const onMapChange = (leafletBounds: LatLngBounds, leafletZoom: number) => {
+        setIsLoading(true);
         const bounds = createBoundsFromLeafletBounds(leafletBounds);
 
         dispatch(fetchShapes(bounds, mapLeafletZoomToZoom(leafletZoom)))
             .then((shapes => {
-                setShapes(shapes)
-            }));
+                setShapes(shapes);
+            }))
+            .finally(() => {
+                setIsLoading(false);
+            });
     }
 
-    return <LeafletMap onChange={onMapChange} shapes={shapes}/>
+    return <>
+        {(isLoading) && <div className={s.LoadingOverlay}><PageLoader/></div>}
+        <LeafletMap onChange={onMapChange} shapes={shapes}/>
+    </>
 }

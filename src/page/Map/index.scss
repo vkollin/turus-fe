@@ -1,14 +1,11 @@
 @import "/src/sass/common";
 
-.ButtonWrapper {
-    display:         flex;
-    justify-content: center;
-    margin-bottom:   1rem;
+.LoadingOverlay {
+    background: rgba(black, 0.65);
+    bottom:     0;
+    left:       0;
+    position:   absolute;
+    right:      0;
+    top:        0;
+    z-index:    2;
 }
-
-.Button {
-    @include Button();
-    display: inline-block;
-    margin:  .5rem 0;
-}
-
