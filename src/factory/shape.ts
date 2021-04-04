@@ -28,7 +28,7 @@ const createPolygonsFromResponse = (response: GetDataResponse): Polygon[] => {
     }
 
     let unionPolygons = union.geometry.coordinates as Position[][][] | Position[][];
-    let preparedUnionPolygons = null;
+    let preparedUnionPolygons: Position[][][];
 
     if (unionPolygons.length === 1) {
         preparedUnionPolygons = [unionPolygons] as Position[][][];
@@ -48,7 +48,13 @@ const createPolygonsFromResponse = (response: GetDataResponse): Polygon[] => {
 };
 
 const createResultsFromResponse = (response: GetDataResponse) => {
-    return response.results.map((r) => new Result(createClubFromClubResponse(r.club), r.count));
+    const results = response.results.map((r) => new Result(createClubFromClubResponse(r.club), r.count));
+
+    results.sort((a, b) => {
+        return b.count - a.count
+    });
+
+    return results;
 };
 
 export const createShapeFromResponse = (response: GetDataResponse): Shape => {

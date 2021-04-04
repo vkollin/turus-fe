@@ -14,7 +14,7 @@ export const LeafletMap = (props: { onChange: (bounds: LatLngBounds, zoom: numbe
     const [polygons, setPolygons] = useState<Polygon[]>([])
 
     useEffect(() => {
-        const leafletMap = Leaflet.map("mapId").setView([52.4465329, 14.0072087], 9);
+        const leafletMap = Leaflet.map("mapId").setView([51.1642292, 10.4541194], 6);
 
         leafletMap.on('moveend', () => {
             props.onChange(leafletMap.getBounds(), leafletMap.getZoom())
