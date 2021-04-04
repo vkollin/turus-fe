@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {LeafletMap} from "./LeafletMap";
 import {LatLngBounds} from "leaflet";
 import {createBoundsFromLeafletBounds} from "../../factory/bounds";
@@ -28,11 +28,23 @@ const mapLeafletZoomToZoom = (leafletZoom: number): number => {
 export default (): JSX.Element => {
     const [shapes, setShapes] = useState<Shape[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const dispatch = useDispatch<ThunkDispatchType>()
 
     const onMapChange = (leafletBounds: LatLngBounds, leafletZoom: number) => {
-        setIsLoading(true);
+        if (timeoutRef.current !== null) {
+            clearTimeout(timeoutRef.current);
+        }
+
+        timeoutRef.current = setTimeout(
+            () => {
+                setIsLoading(true);
+
+            },
+            300
+        );
+
         const bounds = createBoundsFromLeafletBounds(leafletBounds);
 
         dispatch(fetchShapes(bounds, mapLeafletZoomToZoom(leafletZoom)))
@@ -40,6 +52,10 @@ export default (): JSX.Element => {
                 setShapes(shapes);
             }))
             .finally(() => {
+                if (timeoutRef.current !== null) {
+                    clearTimeout(timeoutRef.current);
+                }
+
                 setIsLoading(false);
             });
     }
