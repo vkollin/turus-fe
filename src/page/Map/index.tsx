@@ -11,6 +11,7 @@ import {PageLoader} from "../../component/PageLoader";
 import {ClubSearch} from "../../component/ClubSearch";
 import {Style} from "../../component/Select";
 import {useMapState} from "../../hook/useMapState";
+import {LatLng} from "../../model/Bounds";
 
 const mapLeafletZoomToZoom = (leafletZoom: number): number => {
     if (leafletZoom <= 6) {
@@ -75,6 +76,7 @@ export default (): JSX.Element => {
 
     return <>
         {(isLoading) && <div className={s.LoadingOverlay}><PageLoader/></div>}
+
         <ClubSearch
             key={mapState.club?.id}
             style={Style.WHITE}
@@ -84,6 +86,12 @@ export default (): JSX.Element => {
                 setClub(club);
             })}
         />
-        <LeafletMap onChange={onMapChange} shapes={shapes}/>
+
+        <LeafletMap
+            initialCenter={new LatLng(51.1642292, 10.4541194)}
+            initialZoom={6}
+            onChange={onMapChange}
+            shapes={shapes}
+        />
     </>
 }

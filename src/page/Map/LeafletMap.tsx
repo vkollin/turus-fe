@@ -5,10 +5,13 @@ import {LatLngBounds, Map, Polygon} from "leaflet";
 import {Shape} from "../../model/Shape";
 import {PolygonTooltip} from "../../component/PolygonTooltip";
 import {renderToString} from "react-dom/server";
+import {LatLng} from "../../model/Bounds";
 
 const STADIAMAPS_API_KEY = 'e1aff7e5-fb59-4d0e-a87f-fe6f5d8694cf';
 
 type Props = {
+    initialCenter: LatLng,
+    initialZoom: number,
     onChange: (bounds: LatLngBounds, zoom: number) => void,
     shapes: Shape[]
 };
@@ -19,7 +22,7 @@ export const LeafletMap = (props: Props): JSX.Element => {
     const [polygons, setPolygons] = useState<Polygon[]>([])
 
     useEffect(() => {
-        const leafletMap = Leaflet.map("mapId").setView([51.1642292, 10.4541194], 6);
+        const leafletMap = Leaflet.map("mapId").setView([props.initialCenter.lat, props.initialCenter.lng], props.initialZoom);
 
         leafletMap.on('moveend', () => {
             props.onChange(leafletMap.getBounds(), leafletMap.getZoom())
