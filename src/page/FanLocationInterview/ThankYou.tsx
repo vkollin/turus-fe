@@ -2,6 +2,8 @@ import React from "react";
 import {Section} from "../../component/Section";
 import {PageContent} from "../../component/PageContent";
 import s from "./ThankYou.scss";
+import {Link} from "react-router-dom";
+import {Routes} from "../../type/routes";
 
 
 export const ThankYou = (props: { onBack: () => void }) => {
@@ -18,6 +20,8 @@ export const ThankYou = (props: { onBack: () => void }) => {
             >
                 Zurück
             </span>
+
+            <Link to={Routes.MAP} className={s.BackButton}>Zum Ergebnis</Link>
         </PageContent>
     </>
 }
