@@ -3,3 +3,14 @@
 .leaflet-container .leaflet-control-attribution {
     font-size: 9px
 }
+
+.leaflet-touch .leaflet-bar a {
+    height:      20px;
+    line-height: 18px;
+    width:       20px;
+}
+
+.leaflet-touch .leaflet-control-zoom-in,
+.leaflet-touch .leaflet-control-zoom-out {
+    font-size: 14px;
+}

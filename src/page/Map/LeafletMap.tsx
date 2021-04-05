@@ -31,13 +31,17 @@ export const LeafletMap = (props: Props): JSX.Element => {
     const [polygons, setPolygons] = useState<Polygon[]>([])
 
     useEffect(() => {
-        const leafletMap = Leaflet.map("mapId").setView([props.initialCenter.lat, props.initialCenter.lng], props.initialZoom);
+        const leafletMap = Leaflet
+            .map("mapId", {maxZoom: 18, minZoom: 2, zoomControl: false})
+            .setView([props.initialCenter.lat, props.initialCenter.lng], props.initialZoom);
 
         leafletMap.on('moveend', () => {
             props.onChange(leafletMap.getBounds(), leafletMap.getZoom())
         })
 
         map.current = leafletMap;
+
+        Leaflet.control.zoom({position: 'bottomright'}).addTo(map.current);
 
         Leaflet
             .tileLayer(`https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=${STADIAMAPS_API_KEY}`, {
