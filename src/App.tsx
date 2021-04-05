@@ -1,6 +1,6 @@
 import React from "react";
 import {Provider} from 'react-redux'
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import {store} from "./store";
 import {Routes} from "./type/routes";
 import {FanLocationInterview, Homepage, Map} from "./routes";
@@ -16,6 +16,10 @@ export class App extends React.Component {
                         <Route path={Routes.HOME} exact={true} component={Homepage}/>
                         <Route path={Routes.FAN_LOCATION_INTERVIEW} exact={true} component={FanLocationInterview}/>
                         <Route path={Routes.MAP} exact={true} component={Map}/>
+
+                        <Route path={'/map'} exact={true}>
+                            <Redirect to={Routes.MAP}/>
+                        </Route>
 
                         <Route path='*'>404</Route>
                     </Switch>
