@@ -12,6 +12,7 @@ import {ClubSearch} from "../../component/ClubSearch";
 import {Style} from "../../component/Select";
 import {useMapState} from "../../hook/useMapState";
 import {LatLng} from "../../model/Bounds";
+import {MapMode} from "../../type/api/map";
 
 const mapLeafletZoomToZoom = (leafletZoom: number): number => {
     if (leafletZoom <= 6) {
@@ -31,6 +32,7 @@ const mapLeafletZoomToZoom = (leafletZoom: number): number => {
 
 export default (): JSX.Element => {
     const [shapes, setShapes] = useState<Shape[]>([]);
+    const [mapMode, setMapMode] = useState<MapMode>(MapMode.STANDARD);
     const [isLoading, setIsLoading] = useState(true);
     const [mapState, setBoundsAndZoom, setClub] = useMapState();
 
@@ -56,6 +58,7 @@ export default (): JSX.Element => {
         dispatch(fetchMapResponse(mapState.bounds, mapState.zoom, mapState.club))
             .then((mapResponse => {
                 setShapes(mapResponse.shapes);
+                setMapMode(mapResponse.mode)
             }))
             .finally(() => {
                 if (timeoutRef.current !== null) {
@@ -90,6 +93,7 @@ export default (): JSX.Element => {
         <LeafletMap
             initialCenter={new LatLng(51.1642292, 10.4541194)}
             initialZoom={6}
+            mode={mapMode}
             onChange={onMapChange}
             shapes={shapes}
         />

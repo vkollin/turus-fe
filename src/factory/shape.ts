@@ -48,7 +48,7 @@ const createPolygonsFromResponse = (shapeResponse: ShapeResponse): Polygon[] => 
 };
 
 const createResultsFromResponse = (shapeResponse: ShapeResponse) => {
-    const results = shapeResponse.results.map((r) => new Result(createClubFromClubResponse(r.club), r.count));
+    const results = shapeResponse.results.map((r) => new Result(createClubFromClubResponse(r.club), r.count, r.total));
 
     results.sort((a, b) => {
         return b.count - a.count

@@ -9,15 +9,16 @@ export type ShapeResponse = {
     results: {
         club: ClubResponse,
         count: number,
+        total: number | null,
     }[],
 };
 
-export enum Mode {
+export enum MapMode {
     STANDARD = 'standard',
     EXCLUSIVE = 'exclusive',
 }
 
 export type GetDataResponse = {
     shapes: ShapeResponse[],
-    mode: Mode,
+    mode: MapMode,
 };

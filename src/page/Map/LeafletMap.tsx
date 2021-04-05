@@ -3,17 +3,26 @@ import s from './LeafletMap.scss';
 import {Leaflet} from "../../bridge/Leaflet";
 import {LatLngBounds, Map, Polygon} from "leaflet";
 import {Shape} from "../../model/Shape";
-import {PolygonTooltip} from "../../component/PolygonTooltip";
-import {renderToString} from "react-dom/server";
 import {LatLng} from "../../model/Bounds";
+import {MapMode} from "../../type/api/map";
+import {renderToString} from "react-dom/server";
+import {PolygonTooltip} from "../../component/PolygonTooltip";
+import {PolygonExclusiveInfo} from "../../component/PolygonExclusiveInfo";
+import {Color, pickColor} from "../../helper/pickColor";
 
 const STADIAMAPS_API_KEY = 'e1aff7e5-fb59-4d0e-a87f-fe6f5d8694cf';
+
+const HeatmapGradient: Color[] = [
+    [255, 0, 0],
+    [0, 128, 0],
+];
 
 type Props = {
     initialCenter: LatLng,
     initialZoom: number,
     onChange: (bounds: LatLngBounds, zoom: number) => void,
     shapes: Shape[]
+    mode: MapMode,
 };
 
 export const LeafletMap = (props: Props): JSX.Element => {
@@ -53,7 +62,7 @@ export const LeafletMap = (props: Props): JSX.Element => {
 
     useEffect(() => {
         if (map.current !== null) {
-            const polygons = addShapesToMap(shapes, map.current);
+            const polygons = addShapesToMap(shapes, map.current, props.mode);
 
             setPolygons(polygons);
         }
@@ -62,20 +71,39 @@ export const LeafletMap = (props: Props): JSX.Element => {
     return <div id="mapId" className={s.Map}/>
 }
 
-const addShapesToMap = (shapes: Shape[], map: Map): Polygon[] => {
+const addShapesToMap = (shapes: Shape[], map: Map, mode: MapMode): Polygon[] => {
     const polygons = [];
 
     for (const shape of shapes) {
         for (const rawPolygon of shape.polygons) {
+            let polygon: Polygon;
 
-            const polygon = Leaflet.polygon(rawPolygon.rings, {
-                stroke: false,
-                fill: false,
-                className: s.Polygon,
-            })
+            switch (mode) {
+                case MapMode.STANDARD:
+                    polygon = Leaflet.polygon(rawPolygon.rings, {
+                        stroke: false,
+                        fill: false,
+                        className: s.Polygon,
+                    })
+                    polygon.bindTooltip(renderToString(<PolygonTooltip shape={shape}/>))
+                    break;
+                case MapMode.EXCLUSIVE:
+                    const share = shape.getFirstResult().share;
+                    const heatColor = share !== null ? getHeatColorForShare(share) : undefined;
+
+                    polygon = Leaflet.polygon(rawPolygon.rings, {
+                        stroke: share !== null,
+                        color: heatColor,
+                        fill: share !== null,
+                        fillColor: heatColor,
+                        className: share ? s.PolygonExclusive : s.Polygon,
+                    })
+
+                    polygon.bindTooltip(renderToString(<PolygonExclusiveInfo shape={shape}/>))
+                    break
+            }
 
             polygon.addTo(map);
-            polygon.bindTooltip(renderToString(<PolygonTooltip shape={shape}/>))
 
             polygons.push(polygon);
         }
@@ -84,3 +112,8 @@ const addShapesToMap = (shapes: Shape[], map: Map): Polygon[] => {
     return polygons;
 }
 
+const getHeatColorForShare = (share: number): string => {
+    const pickedColor = pickColor(HeatmapGradient[0], HeatmapGradient[1], share);
+
+    return `rgb(${pickedColor[0]},${pickedColor[1]},${pickedColor[2]})`
+}

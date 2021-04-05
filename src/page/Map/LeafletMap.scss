@@ -9,8 +9,16 @@
     z-index:  1;
 }
 
-.Polygon {
-    fill:         rgba($accentColor, .3);
-    stroke:       rgba($primaryColor, .3);
+.Polygon,
+.PolygonExclusive {
     stroke-width: 2;
 }
+
+.Polygon {
+    fill:   rgba($accentColor, .3);
+    stroke: rgba($primaryColor, .3);
+}
+
+.PolygonExclusive {
+}
+
