@@ -35,6 +35,7 @@ const FanLocationInterview = (props: { hash: UserHashType }): JSX.Element => {
 
     const handleNextClick = () => {
         setShowThankYou(true);
+        window.scroll({top: 0})
     }
 
     if (showThankYou) {
