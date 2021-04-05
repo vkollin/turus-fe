@@ -26,11 +26,7 @@ export default (): JSX.Element => {
         <p>Zusätzlich könnt ihr auch eure Hassvereine angeben (der ein oder andere hat da ja bestimmt ein paar 😉). Die
             Ergebnisse hierzu werden später auch grafisch aufbereitet.</p>
 
-        <p>In der Anfangsphase wird noch keine Karte mit den Ergbnissen zu sehen sein, da es für uns keinen Sinn macht,
-            die wenigen Daten zu zeigen, da sie kaum aussagekräftig sein werden.</p>
-
-        <p>Zwischenzeitlich werden wir euch aber auf <a href="https://turus.net">turus.net</a>, Facebook und Co.
-            berichten, wie es vorangeht und wann die Ergebnisse zu sehen sein werden.</p>
+        <p>Ein erster Entwurf der Karte mit Ergebnissen ist <Link to={Routes.MAP}>hier</Link> zu sehen</p>
 
         <p>Wir sind schon super gespannt und freuen uns auf eure rege Teilnahme!</p>
 
