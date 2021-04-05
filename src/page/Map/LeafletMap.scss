@@ -1,7 +1,7 @@
 @import "/src/sass/common";
 
 .Map {
-    bottom:   0;
+    bottom:   $footerHeight;
     left:     0;
     position: absolute;
     right:    0;
