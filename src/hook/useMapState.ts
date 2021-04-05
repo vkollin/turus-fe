@@ -5,7 +5,7 @@ import {Club} from "../model/Club";
 type ReturnType = [
     { bounds: Bounds | null, zoom: number | null, club: Club | null },
     (bounds: Bounds, zoom: number) => void,
-    (club: Club) => void,
+    (club: Club | null) => void,
 ];
 
 export const useMapState = (initialBounds = null, initialZoom = null, initialClub = null): ReturnType => {

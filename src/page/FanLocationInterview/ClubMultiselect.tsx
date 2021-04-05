@@ -38,7 +38,15 @@ export const ClubMultiSelect = (props: { onSubmit: ((clubs: Club[]) => void), se
     };
 
     return <>
-        <ClubSearch key={JSON.stringify(selectedClubs)} selectedClubs={selectedClubs} onSelect={handleSelect}/>
+        <ClubSearch
+            key={JSON.stringify(selectedClubs)}
+            selectedClubs={selectedClubs}
+            onSelect={(newValue) => {
+                if (newValue !== null) {
+                    handleSelect(newValue)
+                }
+            }}
+        />
         {selectedClubs.map(c => <SelectedClub key={c.id} club={c} onDelete={handleDeletion}/>)}
     </>
 }

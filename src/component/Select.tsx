@@ -4,13 +4,16 @@ import {components, OptionTypeBase} from "react-select";
 import './Select._.scss';
 import {NoticeProps} from "react-select/src/components/Menu";
 
+type OptionType = { label: string, value: string };
+
 type Props<Value> = {
     onValueChange: (newValue: Value | null) => void,
     loadOptions: (inputValue: string) => Promise<ReadonlyArray<OptionTypeBase>>
-    value?: Value | null,
+    value?: OptionType | null,
     placeholder?: string,
     className?: string,
     style?: Style,
+    onFocus?: () => void,
 };
 
 export enum Style {
@@ -57,7 +60,6 @@ export function Select<Value>(props: Props<Value>): JSX.Element {
 
     if (isFocused) {
         classNames.push("Select-Focused");
-
     }
 
     return <AsyncSelect
@@ -68,6 +70,8 @@ export function Select<Value>(props: Props<Value>): JSX.Element {
             LoadingMessage: LoadingMessage,
         }}
         placeholder={placeholder}
+        isClearable={true}
+        value={props.value}
         formatOptionLabel={formatOptionLabel}
         loadOptions={handleLoadOptions}
         onChange={(newValue) => {
@@ -80,6 +84,10 @@ export function Select<Value>(props: Props<Value>): JSX.Element {
             }
         }}
         onFocus={() => {
+            if (typeof props.onFocus === "function") {
+                props.onFocus();
+            }
+
             setIsFocused(true)
         }}
         onBlur={() => {

@@ -9,15 +9,15 @@ import {Select, Style} from "./Select";
 const SEARCH_TIMEOUT = 350;
 
 type Props = {
-    onSelect: (club: Club) => void,
+    onSelect: (club: Club | null) => void,
     selectedClubs?: Club[], // use to exclude ids from search result
     selectedClub?: Club | null, // use to display in field after selection
     className?: string,
     style?: Style,
+    onFocus?: () => void,
 };
 
 export const ClubSearch = (props: Props) => {
-
     const dispatch = useDispatch<ThunkDispatchType>();
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -48,17 +48,15 @@ export const ClubSearch = (props: Props) => {
         }))
     }
 
-    const placeholder = props.selectedClub ? props.selectedClub.name : 'Verein suchen';
+    const value = props.selectedClub ? {label: props.selectedClub.name, value: props.selectedClub.name} : null;
 
     return <Select<Club>
         loadOptions={handleLoadOptions}
         className={props.className}
-        style={props.style}
-        placeholder={placeholder}
-        onValueChange={(newValue => {
-            if (newValue !== null) {
-                props.onSelect(newValue)
-            }
-        })}
+        style={props.style ?? Style.GREY}
+        placeholder={'Verein suchen'}
+        onFocus={props.onFocus}
+        onValueChange={props.onSelect}
+        value={value}
     />
 }

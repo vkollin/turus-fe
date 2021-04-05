@@ -105,7 +105,7 @@ const addShapesToMap = (shapes: Shape[], map: Map, mode: MapMode): Polygon[] => 
             }
 
             const polygon = Leaflet.polygon(rawPolygon.rings, polylineOptions)
-            polygon.bindTooltip(renderToString(tooltipComponent), {direction: "center"})
+            polygon.bindTooltip(renderToString(tooltipComponent), {direction: "auto"})
 
             polygon.addTo(map);
 
