@@ -8,7 +8,12 @@ import {renderToString} from "react-dom/server";
 
 const STADIAMAPS_API_KEY = 'e1aff7e5-fb59-4d0e-a87f-fe6f5d8694cf';
 
-export const LeafletMap = (props: { onChange: (bounds: LatLngBounds, zoom: number) => void, shapes: Shape[] }): JSX.Element => {
+type Props = {
+    onChange: (bounds: LatLngBounds, zoom: number) => void,
+    shapes: Shape[]
+};
+
+export const LeafletMap = (props: Props): JSX.Element => {
     const map = useRef<Map | null>(null)
     const [shapes, setShapes] = useState<Shape[]>([])
     const [polygons, setPolygons] = useState<Polygon[]>([])

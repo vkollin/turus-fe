@@ -41,9 +41,8 @@
     }
 
     .Select__control {
-        background-color: $backgroundColor;
-        border-color:     rgba($greyDark, .9);
-        cursor:           pointer;
+        border-color: rgba($greyDark, .9);
+        cursor:       pointer;
     }
 
     .Select__control--is-focused {
@@ -85,5 +84,20 @@
         span {
             background-color: $accentColor;
         }
+    }
+}
+
+
+.SelectStyleGrey {
+
+    .Select__control {
+        background-color: $backgroundColor;
+    }
+}
+
+.SelectStyleWhite {
+
+    .Select__control {
+        background-color: white;
     }
 }

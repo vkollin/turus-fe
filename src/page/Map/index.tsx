@@ -1,13 +1,16 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {LeafletMap} from "./LeafletMap";
 import {LatLngBounds} from "leaflet";
 import {createBoundsFromLeafletBounds} from "../../factory/bounds";
 import {useDispatch} from "react-redux";
-import {fetchShapes} from "../../store/action/fetchShapes";
+import {fetchMapResponse} from "../../store/action/fetchMapResponse";
 import {ThunkDispatchType} from "../../type/thunk";
 import {Shape} from "../../model/Shape";
 import s from "./index.scss";
 import {PageLoader} from "../../component/PageLoader";
+import {ClubSearch} from "../../component/ClubSearch";
+import {Style} from "../../component/Select";
+import {useMapState} from "../../hook/useMapState";
 
 const mapLeafletZoomToZoom = (leafletZoom: number): number => {
     if (leafletZoom <= 6) {
@@ -28,11 +31,12 @@ const mapLeafletZoomToZoom = (leafletZoom: number): number => {
 export default (): JSX.Element => {
     const [shapes, setShapes] = useState<Shape[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const [mapState, setBoundsAndZoom, setClub] = useMapState();
 
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const dispatch = useDispatch<ThunkDispatchType>()
 
-    const onMapChange = (leafletBounds: LatLngBounds, leafletZoom: number) => {
+    useEffect(() => {
         if (timeoutRef.current !== null) {
             clearTimeout(timeoutRef.current);
         }
@@ -40,16 +44,17 @@ export default (): JSX.Element => {
         timeoutRef.current = setTimeout(
             () => {
                 setIsLoading(true);
-
             },
             300
         );
 
-        const bounds = createBoundsFromLeafletBounds(leafletBounds);
+        if (mapState.bounds === null || mapState.zoom === null) {
+            return
+        }
 
-        dispatch(fetchShapes(bounds, mapLeafletZoomToZoom(leafletZoom)))
-            .then((shapes => {
-                setShapes(shapes);
+        dispatch(fetchMapResponse(mapState.bounds, mapState.zoom, mapState.club))
+            .then((mapResponse => {
+                setShapes(mapResponse.shapes);
             }))
             .finally(() => {
                 if (timeoutRef.current !== null) {
@@ -58,10 +63,27 @@ export default (): JSX.Element => {
 
                 setIsLoading(false);
             });
+
+    }, [JSON.stringify(mapState)]);
+
+    const onMapChange = (leafletBounds: LatLngBounds, leafletZoom: number) => {
+        setBoundsAndZoom(
+            createBoundsFromLeafletBounds(leafletBounds),
+            mapLeafletZoomToZoom(leafletZoom)
+        )
     }
 
     return <>
         {(isLoading) && <div className={s.LoadingOverlay}><PageLoader/></div>}
+        <ClubSearch
+            key={mapState.club?.id}
+            style={Style.WHITE}
+            className={s.ClubSearch}
+            selectedClub={mapState.club}
+            onSelect={(club => {
+                setClub(club);
+            })}
+        />
         <LeafletMap onChange={onMapChange} shapes={shapes}/>
     </>
 }

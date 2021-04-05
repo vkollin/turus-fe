@@ -1,16 +1,16 @@
-import {GetDataResponse} from "../type/api/map";
+import {ShapeResponse} from "../type/api/map";
 import {Polygon, Result, Shape} from "../model/Shape";
 import {LatLng} from "../model/Bounds";
 import {createClubFromClubResponse} from "./club";
 import * as turf from '@turf/turf'
 import {Position} from '@turf/turf'
 
-const createPolygonsFromResponse = (response: GetDataResponse): Polygon[] => {
-    if (response.polygon === null) {
+const createPolygonsFromResponse = (shapeResponse: ShapeResponse): Polygon[] => {
+    if (shapeResponse.polygon === null) {
         return [];
     }
 
-    const rings = response.polygon.rings;
+    const rings = shapeResponse.polygon.rings;
 
     let union = null;
 
@@ -47,8 +47,8 @@ const createPolygonsFromResponse = (response: GetDataResponse): Polygon[] => {
     );
 };
 
-const createResultsFromResponse = (response: GetDataResponse) => {
-    const results = response.results.map((r) => new Result(createClubFromClubResponse(r.club), r.count));
+const createResultsFromResponse = (shapeResponse: ShapeResponse) => {
+    const results = shapeResponse.results.map((r) => new Result(createClubFromClubResponse(r.club), r.count));
 
     results.sort((a, b) => {
         return b.count - a.count
@@ -57,11 +57,11 @@ const createResultsFromResponse = (response: GetDataResponse) => {
     return results;
 };
 
-export const createShapeFromResponse = (response: GetDataResponse): Shape => {
-    const polygons = createPolygonsFromResponse(response);
-    const results = createResultsFromResponse(response);
+export const createShapeFromResponse = (shapeResponse: ShapeResponse): Shape => {
+    const polygons = createPolygonsFromResponse(shapeResponse);
+    const results = createResultsFromResponse(shapeResponse);
 
-    return new Shape(response.postcode, response.name, polygons, results);
+    return new Shape(shapeResponse.postcode, shapeResponse.name, polygons, results);
 }
 
 

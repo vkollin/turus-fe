@@ -1,6 +1,6 @@
 import {ClubResponse} from "./club";
 
-export type GetDataResponse = {
+export type ShapeResponse = {
     polygon: null | {
         rings: [number, number][][]
     },
@@ -10,4 +10,14 @@ export type GetDataResponse = {
         club: ClubResponse,
         count: number,
     }[],
+};
+
+export enum Mode {
+    STANDARD = 'standard',
+    EXCLUSIVE = 'exclusive',
+}
+
+export type GetDataResponse = {
+    shapes: ShapeResponse[],
+    mode: Mode,
 };

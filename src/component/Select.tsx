@@ -9,7 +9,14 @@ type Props<Value> = {
     loadOptions: (inputValue: string) => Promise<ReadonlyArray<OptionTypeBase>>
     value?: Value | null,
     placeholder?: string,
+    className?: string,
+    style?: Style,
 };
+
+export enum Style {
+    GREY,
+    WHITE,
+}
 
 type ReactSelectComponentPropsType = NoticeProps<OptionTypeBase, boolean>;
 
@@ -35,8 +42,22 @@ export function Select<Value>(props: Props<Value>): JSX.Element {
 
     const classNames = ["Select"]
 
+    switch (props.style ?? Style.GREY) {
+        case Style.GREY:
+            classNames.push("SelectStyleGrey");
+            break;
+        case Style.WHITE:
+            classNames.push("SelectStyleWhite");
+            break;
+    }
+
+    if (props.className) {
+        classNames.push(props.className);
+    }
+
     if (isFocused) {
         classNames.push("Select-Focused");
+
     }
 
     return <AsyncSelect
