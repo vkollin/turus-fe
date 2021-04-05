@@ -1,14 +1,14 @@
 import React, {useEffect, useRef, useState} from "react";
 import s from './LeafletMap.scss';
 import {Leaflet} from "../../bridge/Leaflet";
-import {LatLngBounds, Map, Polygon} from "leaflet";
+import {LatLngBounds, Map, Polygon, PolylineOptions} from "leaflet";
 import {Shape} from "../../model/Shape";
 import {LatLng} from "../../model/Bounds";
 import {MapMode} from "../../type/api/map";
 import {renderToString} from "react-dom/server";
 import {PolygonTooltip} from "../../component/PolygonTooltip";
-import {PolygonExclusiveInfo} from "../../component/PolygonExclusiveInfo";
 import {Color, pickColor} from "../../helper/pickColor";
+import {PolygonExclusiveInfo} from "../../component/PolygonExclusiveInfo";
 
 const STADIAMAPS_API_KEY = 'e1aff7e5-fb59-4d0e-a87f-fe6f5d8694cf';
 
@@ -76,32 +76,36 @@ const addShapesToMap = (shapes: Shape[], map: Map, mode: MapMode): Polygon[] => 
 
     for (const shape of shapes) {
         for (const rawPolygon of shape.polygons) {
-            let polygon: Polygon;
+            let polylineOptions: PolylineOptions;
+
+            let tooltipComponent: JSX.Element;
 
             switch (mode) {
                 case MapMode.STANDARD:
-                    polygon = Leaflet.polygon(rawPolygon.rings, {
+                    tooltipComponent = <PolygonTooltip shape={shape}/>
+                    polylineOptions = {
+                        className: s.Polygon,
                         stroke: false,
                         fill: false,
-                        className: s.Polygon,
-                    })
-                    polygon.bindTooltip(renderToString(<PolygonTooltip shape={shape}/>))
+                    };
                     break;
                 case MapMode.EXCLUSIVE:
                     const share = shape.getFirstResult().share;
                     const heatColor = share !== null ? getHeatColorForShare(share) : undefined;
 
-                    polygon = Leaflet.polygon(rawPolygon.rings, {
+                    tooltipComponent = <PolygonExclusiveInfo shape={shape}/>
+                    polylineOptions = {
                         stroke: share !== null,
                         color: heatColor,
                         fill: share !== null,
                         fillColor: heatColor,
                         className: share ? s.PolygonExclusive : s.Polygon,
-                    })
-
-                    polygon.bindTooltip(renderToString(<PolygonExclusiveInfo shape={shape}/>))
+                    }
                     break
             }
+
+            const polygon = Leaflet.polygon(rawPolygon.rings, polylineOptions)
+            polygon.bindTooltip(renderToString(tooltipComponent), {direction: "center"})
 
             polygon.addTo(map);
 

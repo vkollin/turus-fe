@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FC} from "react";
 import {Result, Shape} from "../model/Shape";
 import s from "./PolygonTooltip.scss";
 
@@ -6,7 +6,7 @@ type PolygonTooltipProps = {
     shape: Shape
 };
 
-export const PolygonTooltip = (props: PolygonTooltipProps): JSX.Element => {
+export const PolygonTooltip: FC<PolygonTooltipProps> = (props: PolygonTooltipProps): JSX.Element => {
 
     return <div className={s.Wrapper}>
         <h1>{props.shape.postcode}</h1>
