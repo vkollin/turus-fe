@@ -13,6 +13,7 @@ import {Style} from "../../component/Select";
 import {useMapState} from "../../hook/useMapState";
 import {LatLng} from "../../model/Bounds";
 import {MapMode} from "../../type/api/map";
+import {CancelTokenSource} from "axios";
 
 const mapLeafletZoomToZoom = (leafletZoom: number): number => {
     if (leafletZoom <= 6) {
@@ -37,6 +38,8 @@ export default (): JSX.Element => {
     const [mapState, setBoundsAndZoom, setClub] = useMapState();
 
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const cancelTokenRef = useRef<CancelTokenSource | null>(null)
+
     const dispatch = useDispatch<ThunkDispatchType>()
 
     useEffect(() => {
@@ -55,7 +58,7 @@ export default (): JSX.Element => {
             return
         }
 
-        dispatch(fetchMapResponse(mapState.bounds, mapState.zoom, mapState.club))
+        dispatch(fetchMapResponse(mapState.bounds, mapState.zoom, mapState.club, cancelTokenRef))
             .then((mapResponse => {
                 setShapes(mapResponse.shapes);
                 setMapMode(mapResponse.mode)

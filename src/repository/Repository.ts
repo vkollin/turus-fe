@@ -19,13 +19,13 @@ export class Repository {
         }
     }
 
-    protected get<ReturnType>(path: string, query?: QueryParamsType): Promise<ReturnType> {
+    protected get<ReturnType>(path: string, query?: QueryParamsType, axiosOptions?: AxiosRequestConfig): Promise<ReturnType> {
 
         const url = this.buildUrl(path, query);
 
         return new Promise((resolve, reject) => {
             this.axios
-                .get<ReturnType>(`${url}`, this.axiosDefaultOptions())
+                .get<ReturnType>(`${url}`, this.buildAxiosOptions(axiosOptions))
                 .then(rawResponse => {
                     Repository.handleResponse<ReturnType>(rawResponse, resolve, reject)
                 })
@@ -36,7 +36,7 @@ export class Repository {
     protected post<PayloadType, ReturnType>(path: string, query?: QueryParamsType, payload: PayloadType | null = null): Promise<ReturnType> {
         return new Promise((resolve, reject) => {
             this.axios
-                .post<ReturnType>(`${this.apiUrl}${path}`, payload, this.axiosDefaultOptions())
+                .post<ReturnType>(`${this.apiUrl}${path}`, payload, this.buildAxiosOptions())
                 .then(rawResponse => {
                     Repository.handleResponse<ReturnType>(rawResponse, resolve, reject)
                 })
@@ -58,7 +58,12 @@ export class Repository {
         return url
     }
 
-    private axiosDefaultOptions = (): AxiosRequestConfig => {
-        return {}
+    private buildAxiosOptions = (options?: AxiosRequestConfig): AxiosRequestConfig => {
+        const defaultOptions: AxiosRequestConfig = {};
+
+        if (options) {
+            return {...defaultOptions, ...options};
+        }
+        return defaultOptions
     }
 }
