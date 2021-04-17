@@ -105,6 +105,7 @@ module.exports = (env, argv) => {
         ],
 
         optimization: {
+            minimize: !isDevelopment,
             minimizer: [new TerserPlugin(), new OptimizeCssAssetsPlugin({})],
             splitChunks: {
                 chunks: 'all',

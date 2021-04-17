@@ -46,5 +46,8 @@ export default (): JSX.Element => {
             <Link className={s.Button} to={Routes.FAN_LOCATION_INTERVIEW}>Zur Umfrage</Link>
         </div>
 
+        <div className={s.ButtonWrapper}>
+            <Link className={s.Button} to={Routes.MAP}>Zur Karte</Link>
+        </div>
     </PageContent>
 }
