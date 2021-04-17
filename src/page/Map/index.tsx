@@ -91,6 +91,7 @@ export default (): JSX.Element => {
             onSelect={(club => {
                 setClub(club);
             })}
+            options={{withResult: true}}
         />
 
         <LeafletMap

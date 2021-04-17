@@ -5,6 +5,7 @@ import React, {useRef} from "react";
 import {OptionTypeBase} from "react-select";
 import {searchClubs} from "../store/action/searchClubs";
 import {Select, Style} from "./Select";
+import {SearchOptions} from "../repository/ClubRepository";
 
 const SEARCH_TIMEOUT = 350;
 
@@ -15,6 +16,7 @@ type Props = {
     className?: string,
     style?: Style,
     onFocus?: () => void,
+    options?: SearchOptions,
 };
 
 export const ClubSearch = (props: Props) => {
@@ -35,7 +37,7 @@ export const ClubSearch = (props: Props) => {
             timeoutRef.current = setTimeout(
                 () => {
 
-                    dispatch(searchClubs(inputValue, props.selectedClubs ?? []))
+                    dispatch(searchClubs(inputValue, props.selectedClubs ?? [], props.options))
                         .then(data => {
                             resolve(data.map(d => ({value: d, label: d.name})))
                         })
