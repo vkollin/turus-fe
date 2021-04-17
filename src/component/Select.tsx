@@ -14,6 +14,7 @@ type Props<Value> = {
     className?: string,
     style?: Style,
     onFocus?: () => void,
+    mapMode?: boolean,
 };
 
 export enum Style {
@@ -60,6 +61,10 @@ export function Select<Value>(props: Props<Value>): JSX.Element {
 
     if (isFocused) {
         classNames.push("Select-Focused");
+    }
+
+    if (props.mapMode) {
+        classNames.push("Select-MapMode")
     }
 
     return <AsyncSelect

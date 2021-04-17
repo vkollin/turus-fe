@@ -17,6 +17,7 @@ type Props = {
     style?: Style,
     onFocus?: () => void,
     options?: SearchOptions,
+    mapMode?: boolean,
 };
 
 export const ClubSearch = (props: Props) => {
@@ -60,5 +61,6 @@ export const ClubSearch = (props: Props) => {
         onFocus={props.onFocus}
         onValueChange={props.onSelect}
         value={value}
+        mapMode={props.mapMode}
     />
 }

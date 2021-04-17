@@ -92,6 +92,7 @@ export default (): JSX.Element => {
                 setClub(club);
             })}
             options={{withResult: true}}
+            mapMode={true}
         />
 
         <LeafletMap

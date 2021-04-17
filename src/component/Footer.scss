@@ -12,6 +12,12 @@
     position:        absolute;
     width:           100%;
 
+    &.MapMode {
+        justify-content: space-between;
+        padding:         2px 10px;
+        z-index:         1;
+    }
+
     .Logo {
         @include defaultTransition;
         $logoHeight: 30px;
@@ -25,4 +31,9 @@
             fill: $accentColor;
         }
     }
+}
+
+.MapAttribution {
+    align-self: flex-end;
+    font-size:  9px;
 }

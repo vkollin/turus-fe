@@ -9,6 +9,14 @@
         }
     }
 
+    &.Select-Focused,
+    &.Select-MapMode {
+        .Select__control {
+            margin:    0 auto;
+            max-width: $maxPageWidth;
+        }
+    }
+
     &.Select-Focused {
         background-color: rgba(white, 0.95);
         height:           100%;
@@ -21,8 +29,6 @@
 
         .Select__control {
             background-color: transparent;
-            margin:           0 auto;
-            max-width:        $maxPageWidth;
         }
 
         .Select__dropdown-indicator {

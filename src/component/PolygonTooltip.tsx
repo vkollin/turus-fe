@@ -19,8 +19,8 @@ const TooltipResults = (props: { results: Result[] }): JSX.Element => {
         <div key={'header'} className={s.ResultsHeader}>
             <div className={s.ResultsCaption}>
                 <div/>
-                <div>Stimmen</div>
                 <div>Klub</div>
+                <div>Stimmen</div>
             </div>
         </div>
     ];
@@ -36,9 +36,9 @@ const TooltipResults = (props: { results: Result[] }): JSX.Element => {
         }
 
         const row = <div key={result.club.id} className={s.Result}>
-            <div className={s.Ranking}>{hasDifferentCountAsPrevious && ranking}</div>
-            <div className={s.Count}>{result.count}</div>
+            <div className={s.Ranking}>{hasDifferentCountAsPrevious && `${ranking}.`}</div>
             <div className={s.Club}>{result.club.name}</div>
+            <div className={s.Count}>{result.count}</div>
         </div>
 
         rows.push(row);

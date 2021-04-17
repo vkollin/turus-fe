@@ -1,6 +1,8 @@
 import React from "react";
 import loadable from "@loadable/component";
 import {PageLoader} from "./component/PageLoader";
+import {Footer} from "./component/Footer";
+import {PageWrapper} from "./component/PageWrapper";
 
 const defaultLoadableOptions = {
     fallback: <PageLoader/>
@@ -11,7 +13,10 @@ export const Homepage = () => {
         ...defaultLoadableOptions,
     });
 
-    return <Component/>;
+    return <PageWrapper>
+        <Component/>
+        <Footer/>
+    </PageWrapper>;
 };
 
 export const FanLocationInterview = () => {
@@ -19,7 +24,10 @@ export const FanLocationInterview = () => {
         ...defaultLoadableOptions,
     });
 
-    return <Component/>;
+    return <PageWrapper>
+        <Component/>
+        <Footer/>
+    </PageWrapper>;
 };
 
 export const Map = () => {
@@ -27,5 +35,8 @@ export const Map = () => {
         ...defaultLoadableOptions,
     });
 
-    return <Component/>;
+    return <>
+        <Component/>
+        <Footer mapMode={true}/>
+    </>
 };

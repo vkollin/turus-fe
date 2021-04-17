@@ -1,7 +1,7 @@
 @import "/src/sass/common";
 
 .Map {
-    bottom:   $footerHeight;
+    bottom:   0;
     left:     0;
     position: absolute;
     right:    0;
@@ -9,16 +9,15 @@
     z-index:  1;
 }
 
-.Polygon,
-.PolygonExclusive {
+.Polygon {
     stroke-width: 2;
+}
+
+.PolygonExclusive {
+    stroke-width: 0;
 }
 
 .Polygon {
     fill:   rgba($accentColor, .3);
     stroke: rgba($primaryColor, .3);
 }
-
-.PolygonExclusive {
-}
-
