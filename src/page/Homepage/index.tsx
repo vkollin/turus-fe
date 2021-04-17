@@ -35,7 +35,7 @@ export default (): JSX.Element => {
         <p>
             <i>
                 PS: Wir haben versucht jeden Klub bis in die unteren Ligen mit aufzunehmen. Da das ziemlich viele sind
-                (so an die 15.00!), verzeiht uns bitte, wenn einzelne fehlen sollten. Aus diesem Grund sind auch nur
+                (so an die 15.000!), verzeiht uns bitte, wenn einzelne fehlen sollten. Aus diesem Grund sind auch nur
                 deutsche Klubs vertreten. <br/>Solltet ihr euren Klub nicht in der Liste finden, würden wir uns freuen,
                 wenn ihr euch <a href="mailto:turus@devultras.com">meldet</a>. Wir werden anschließend den Klub mit
                 aufnehmen.
