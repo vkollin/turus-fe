@@ -12,6 +12,6 @@ export const PolygonExclusiveInfo = (props: PolygonTooltipProps): JSX.Element =>
     return <div className={s.Wrapper}>
         <h1>{props.shape.postcode}</h1>
         {result.count} von {result.total} Stimmen gab es in diesem Gebiet.<br/>
-        Das entspricht {result.share ? result.share * 100 : 'unbekannt'}%
+        Das entspricht {result.share ? (result.share * 100).toFixed(1) : 'unbekannt'}%
     </div>
 }
