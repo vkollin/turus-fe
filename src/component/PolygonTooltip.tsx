@@ -1,6 +1,7 @@
 import React, {FC} from "react";
-import {Result, Shape} from "../model/Shape";
+import {Shape} from "../model/Shape";
 import s from "./PolygonTooltip.scss";
+import {Result} from "../model/Result";
 
 type PolygonTooltipProps = {
     shape: Shape

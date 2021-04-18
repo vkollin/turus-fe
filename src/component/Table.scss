@@ -1,0 +1,52 @@
+@import "/src/sass/common";
+
+.Wrapper {
+}
+
+.Table {
+    border-spacing: 0;
+    width:          100%;
+}
+
+.Head {
+
+    th {
+        border-bottom: 1px solid $greyDark;
+        padding:       7px 5px;
+    }
+}
+
+.Body {
+
+    tr {
+        &:nth-child(2n) {
+            background: rgba($greyLight, 0.6);
+        }
+
+        &:hover {
+            background: rgba($accentColor, 0.3);
+        }
+    }
+
+    td {
+        border:       0;
+        border-right: 1px solid $greyLight;
+        padding:      7px 5px;
+
+        &:last-child {
+            border-right: 0;
+        }
+    }
+}
+
+.Left {
+    text-align: left
+}
+
+.Right {
+    text-align: right
+}
+
+.Center {
+    text-align: center
+}

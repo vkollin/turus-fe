@@ -1,5 +1,5 @@
 import {LatLng} from "./Bounds";
-import {Club} from "./Club";
+import {Result} from "./Result";
 
 type Rings = LatLng[][];
 
@@ -21,18 +21,5 @@ export class Polygon {
     constructor(
         readonly rings: Rings,
     ) {
-    }
-}
-
-export class Result {
-    constructor(readonly club: Club, readonly count: number, readonly total: number | null) {
-    }
-
-    get share(): number | null {
-        if (this.total === null) {
-            return null;
-        }
-
-        return this.count / this.total;
     }
 }

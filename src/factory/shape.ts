@@ -1,9 +1,9 @@
 import {ShapeResponse} from "../type/api/map";
-import {Polygon, Result, Shape} from "../model/Shape";
+import {Polygon, Shape} from "../model/Shape";
 import {LatLng} from "../model/Bounds";
-import {createClubFromClubResponse} from "./club";
 import * as turf from '@turf/turf'
 import {Position} from '@turf/turf'
+import {createResultsFromResponse} from "./result";
 
 const createPolygonsFromResponse = (shapeResponse: ShapeResponse): Polygon[] => {
     if (shapeResponse.polygon === null) {
@@ -45,16 +45,6 @@ const createPolygonsFromResponse = (shapeResponse: ShapeResponse): Polygon[] => 
             )
         )
     );
-};
-
-const createResultsFromResponse = (shapeResponse: ShapeResponse) => {
-    const results = shapeResponse.results.map((r) => new Result(createClubFromClubResponse(r.club), r.count, r.total));
-
-    results.sort((a, b) => {
-        return b.count - a.count
-    });
-
-    return results;
 };
 
 export const createShapeFromResponse = (shapeResponse: ShapeResponse): Shape => {

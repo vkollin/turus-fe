@@ -30,6 +30,17 @@ export const FanLocationInterview = () => {
     </PageWrapper>;
 };
 
+export const Result = () => {
+    const Component = loadable(() => import("./page/Result"), {
+        ...defaultLoadableOptions,
+    });
+
+    return <PageWrapper>
+        <Component/>
+        <Footer/>
+    </PageWrapper>;
+};
+
 export const Map = () => {
     const Component = loadable(() => import("./page/Map"), {
         ...defaultLoadableOptions,

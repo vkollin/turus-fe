@@ -16,9 +16,7 @@ import {MapMode} from "../../type/api/map";
 import {CancelTokenSource} from "axios";
 
 const mapLeafletZoomToZoom = (leafletZoom: number): number => {
-    if (leafletZoom <= 6) {
-        return 5;
-    } else if (leafletZoom === 7) {
+    if (leafletZoom <= 7) {
         return 4;
     } else if (leafletZoom === 8) {
         return 3;
