@@ -5,6 +5,7 @@
     @include defaultTransition;
     text-decoration: none;
     color:           $accentColor;
+    cursor:          pointer;
 
     &:hover {
         @include defaultTransition;

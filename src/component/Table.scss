@@ -50,3 +50,7 @@
 .Center {
     text-align: center
 }
+
+.Link {
+    @include Link;
+}

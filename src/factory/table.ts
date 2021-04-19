@@ -1,8 +1,9 @@
 import {Cell, Column, DirectionEnum, Row, Table} from "../model/Table";
 import {Results} from "../model/Results";
 import {DisplayService} from "../service/DisplayService";
+import {Club} from "../model/Club";
 
-export const createPostcodeBasedFromResults = (result: Results): Table => {
+export function createPostcodeBasedFromResults(results: Results): Table<Club> {
 
     const columns = [
         new Column('ranking', 'Rang', {direction: DirectionEnum.LEFT}),
@@ -12,17 +13,17 @@ export const createPostcodeBasedFromResults = (result: Results): Table => {
         new Column('clubShare', 'Anteil (Klub)', {direction: DirectionEnum.RIGHT}),
     ];
 
-    const rows: Row[] = [];
+    const rows: Row<Club>[] = [];
 
     let totalCount = 0;
     let previousCount = null;
     let ranking = 1;
 
-    for (const r of result.results) {
+    for (const r of results.results) {
         totalCount += r.count;
     }
 
-    for (const r of result.results) {
+    for (const r of results.results) {
         const hasDifferentCountAsPrevious = previousCount !== r.count;
 
         if (previousCount && hasDifferentCountAsPrevious) {
@@ -31,16 +32,59 @@ export const createPostcodeBasedFromResults = (result: Results): Table => {
 
         const cells = [
             new Cell('ranking', `${ranking}.`),
-            new Cell('club', r.club.name),
+            new Cell('club', r.club.name, {link: true}),
             new Cell('count', r.count),
             new Cell('postcodeShare', DisplayService.formatPercent(r.count / totalCount)),
             new Cell('clubShare', r.share ? DisplayService.formatPercent(r.share) : ''),
         ];
 
-        rows.push(new Row(cells))
+        rows.push(new Row<Club>(cells, r.club))
 
         previousCount = r.count
     }
 
-    return new Table(result.postcode, columns, rows);
+    return new Table(results.postcode, columns, rows);
+}
+
+export function createClubBasedFromResults(results: Results): Table<string> {
+
+    const columns = [
+        new Column('ranking', 'Rang', {direction: DirectionEnum.LEFT}),
+        new Column('postcode', 'PLZ', {direction: DirectionEnum.LEFT}),
+        new Column('count', 'Stimmen', {direction: DirectionEnum.RIGHT}),
+        new Column('postcodeShare', 'Anteil (Gebiet)', {direction: DirectionEnum.RIGHT}),
+        new Column('clubShare', 'Anteil (Klub)', {direction: DirectionEnum.RIGHT}),
+    ];
+
+    const rows: Row<string>[] = [];
+
+    let totalCount = 0;
+    let previousCount = null;
+    let ranking = 1;
+
+    for (const r of results.results) {
+        totalCount += r.count;
+    }
+
+    for (const r of results.results) {
+        const hasDifferentCountAsPrevious = previousCount !== r.count;
+
+        if (previousCount && hasDifferentCountAsPrevious) {
+            ranking++;
+        }
+
+        const cells = [
+            new Cell('ranking', `${ranking}.`),
+            new Cell('club', r.club.name, {link: true}),
+            new Cell('count', r.count),
+            new Cell('postcodeShare', DisplayService.formatPercent(r.count / totalCount)),
+            new Cell('clubShare', r.share ? DisplayService.formatPercent(r.share) : ''),
+        ];
+
+        rows.push(new Row<string>(cells, ''))
+
+        previousCount = r.count
+    }
+
+    return new Table(results.postcode, columns, rows);
 }

@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {useUser} from "../../hook/useUser";
-import {PostcodeInterview} from "./PostcodeInterview";
 import {ClubInterview} from "./ClubInterview";
 import {EnemyInterview} from "./EnemyInterview";
 import {Club} from "../../model/Club";
@@ -12,6 +11,8 @@ import {PageLoader} from "../../component/PageLoader";
 import s from "./index.scss";
 import {ThankYou} from "./ThankYou";
 import {PageContent} from "../../component/PageContent";
+import {PostcodeSearch} from "../../component/PostcodeSearch";
+import {Section} from "../../component/Section";
 
 const FanLocationInterview = (props: { hash: UserHashType }): JSX.Element => {
     const [isLoading, user, setPostcode, setClubs, setEnemies] = useUser(props.hash);
@@ -47,7 +48,7 @@ const FanLocationInterview = (props: { hash: UserHashType }): JSX.Element => {
     }
 
     return <>
-        <PostcodeInterview onSubmit={handlePostcodeUpdate} value={user.postcode}/>
+        <Section title={"PLZ"}><PostcodeSearch onSubmit={handlePostcodeUpdate} value={user.postcode}/></Section>
         <ClubInterview onSubmit={handleClubsUpdate} clubs={user.clubs}/>
         <EnemyInterview onSubmit={handleEnemiesUpdate} clubs={user.enemies}/>
 

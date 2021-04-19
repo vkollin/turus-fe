@@ -1,21 +1,20 @@
-import React from "react";
-import {Section} from "../../component/Section";
-import {Select} from "../../component/Select";
-import {OptionTypeBase} from "react-select";
+import {Postcode} from "../model/Postcode";
 import {useDispatch} from "react-redux";
-import {ThunkDispatchType} from "../../type/thunk";
-import {searchPostcodes} from "../../store/action/searchPostcodes";
-import {Postcode} from "../../model/Postcode";
-import {SelectedValue} from "../../component/SelectedValue";
+import {ThunkDispatchType} from "../type/thunk";
+import {OptionTypeBase} from "react-select";
+import {searchPostcodes} from "../store/action/searchPostcodes";
+import {Select} from "./Select";
+import React from "react";
+import {SelectedValue} from "./SelectedValue";
 
-export const PostcodeInterview = (props: { onSubmit: ((postcode: Postcode | null) => void), value: Postcode | null }) => {
-    return <Section title={"PLZ"}>
+export const PostcodeSearch = (props: { onSubmit: ((postcode: Postcode | null) => void), value: Postcode | null, className?: string }) => {
+    return <div className={props.className}>
         {
             props.value === null || props.value.code === null
-                ? <SelectPostcode onSubmit={props.onSubmit}/>
+                ? <PostcodeSelect onSubmit={props.onSubmit}/>
                 : <ShowPostcode value={props.value} onSubmit={props.onSubmit}/>
         }
-    </Section>
+    </div>
 }
 
 const ShowPostcode = (props: { onSubmit: ((postcode: Postcode | null) => void), value: Postcode }) => {
@@ -27,7 +26,7 @@ const ShowPostcode = (props: { onSubmit: ((postcode: Postcode | null) => void), 
     />
 }
 
-const SelectPostcode = (props: { onSubmit: ((postcode: Postcode) => void) }) => {
+const PostcodeSelect = (props: { onSubmit: ((postcode: Postcode) => void) }) => {
     const dispatch = useDispatch<ThunkDispatchType>();
 
     const handleLoadOptions = (inputValue: string): Promise<OptionTypeBase[]> => {

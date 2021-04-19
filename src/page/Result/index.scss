@@ -2,3 +2,21 @@
 
 .Wrapper {
 }
+
+.Header {
+    display: flex;
+    margin:  10px 0;
+}
+
+.HeaderItem {
+    margin: 0 7px;
+    width:  50%;
+
+    &:first-child {
+        margin-left: 0;
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
+}

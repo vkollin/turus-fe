@@ -4,10 +4,11 @@ import {Club} from "../model/Club";
 import {AxiosRequestConfig} from "axios";
 import {ResultsResponse} from "../model/ResultsResponse";
 import {createFromResponse} from "../factory/results";
+import {Postcode} from "../model/Postcode";
 
 export class ResultsRepository extends Repository {
 
-    getResults = (postcode: string | null, club: Club | null, axiosOptions?: AxiosRequestConfig) => {
+    getResults = (postcode: Postcode | null, club: Club | null, axiosOptions?: AxiosRequestConfig) => {
         let url = `/api/results/`;
         const query: QueryParamsType = {};
 
@@ -16,7 +17,7 @@ export class ResultsRepository extends Repository {
         }
 
         if (postcode) {
-            query['postcode'] = `${postcode}`;
+            query['postcode'] = `${postcode.code}`;
         }
 
         return new Promise<ResultsResponse>(((resolve, reject) => {
