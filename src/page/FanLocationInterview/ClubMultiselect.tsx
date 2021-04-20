@@ -6,7 +6,7 @@ import {ClubSearch} from "../../component/ClubSearch";
 
 const MANIPULATION_TIMEOUT = 500;
 
-export const ClubMultiSelect = (props: { onSubmit: ((clubs: Club[]) => void), selectedClubs: Club[] }) => {
+export const ClubMultiSelect = (props: { onSubmit: ((clubs: Club[]) => void), selectedClubs: Club[], selectedClassName?: string }) => {
     const [selectedClubs, setSelectedClubs] = useState(props.selectedClubs);
     const previousSelectedClubs = usePrevious<Club[]>(selectedClubs)
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -47,12 +47,18 @@ export const ClubMultiSelect = (props: { onSubmit: ((clubs: Club[]) => void), se
                 }
             }}
         />
-        {selectedClubs.map(c => <SelectedClub key={c.id} club={c} onDelete={handleDeletion}/>)}
+        {selectedClubs.map(c => <SelectedClub
+            key={c.id}
+            club={c}
+            onDelete={handleDeletion}
+            className={props.selectedClassName}
+        />)}
     </>
 }
 
-const SelectedClub = (props: { club: Club, onDelete: (club: Club) => void }) => {
+const SelectedClub = (props: { club: Club, onDelete: (club: Club) => void, className?: string }) => {
     return <SelectedValue
+        className={props.className}
         label={props.club.name}
         src={props.club.icon}
         onClick={() => {

@@ -7,7 +7,7 @@ import {Select} from "./Select";
 import React from "react";
 import {SelectedValue} from "./SelectedValue";
 
-export const PostcodeSearch = (props: { onSubmit: ((postcode: Postcode | null) => void), value: Postcode | null, className?: string }) => {
+export const PostcodeSearch = (props: { onSubmit: ((postcode: Postcode | null) => void), value: Postcode | null, className?: string, selectedClassName?: string }) => {
     return <div className={props.className}>
         {
             props.value === null || props.value.code === null
@@ -17,8 +17,9 @@ export const PostcodeSearch = (props: { onSubmit: ((postcode: Postcode | null) =
     </div>
 }
 
-const ShowPostcode = (props: { onSubmit: ((postcode: Postcode | null) => void), value: Postcode }) => {
+const ShowPostcode = (props: { onSubmit: ((postcode: Postcode | null) => void), value: Postcode, className?: string }) => {
     return <SelectedValue
+        className={props.className}
         label={props.value.code}
         onClick={() => {
             props.onSubmit(null)

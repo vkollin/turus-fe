@@ -2,7 +2,7 @@ import React from "react";
 import s from "./SelectedValue.scss";
 
 
-export const SelectedValue = (props: { src?: string | null, label: string, onClick?: () => void }) => {
+export const SelectedValue = (props: { src?: string | null, label: string, onClick?: () => void, className?: string }) => {
     let image = null;
     const hasOnClick = typeof props.onClick !== 'undefined';
     let onClick = () => {
@@ -17,7 +17,7 @@ export const SelectedValue = (props: { src?: string | null, label: string, onCli
     }
 
     return <div
-        className={s.Wrapper}
+        className={[s.Wrapper, props.className].join(' ')}
         onClick={onClick}
     >
         {image}

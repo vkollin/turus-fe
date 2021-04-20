@@ -48,9 +48,15 @@ const FanLocationInterview = (props: { hash: UserHashType }): JSX.Element => {
     }
 
     return <>
-        <Section title={"PLZ"}><PostcodeSearch onSubmit={handlePostcodeUpdate} value={user.postcode}/></Section>
-        <ClubInterview onSubmit={handleClubsUpdate} clubs={user.clubs}/>
-        <EnemyInterview onSubmit={handleEnemiesUpdate} clubs={user.enemies}/>
+        <Section title={"PLZ"}>
+            <PostcodeSearch
+                onSubmit={handlePostcodeUpdate}
+                value={user.postcode}
+                selectedClassName={s.SelectedValue}
+            />
+        </Section>
+        <ClubInterview onSubmit={handleClubsUpdate} clubs={user.clubs} selectedClassName={s.SelectedValue}/>
+        <EnemyInterview onSubmit={handleEnemiesUpdate} clubs={user.enemies} selectedClassName={s.SelectedValue}/>
 
         <PageContent className={s.ButtonWrapper}>
             <span
