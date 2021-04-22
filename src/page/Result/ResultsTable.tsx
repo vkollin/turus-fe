@@ -21,20 +21,12 @@ export const ClubsTable = (props: { results: Results[], onClick?: (data: Club) =
     return <>{tables}</>;
 }
 
-export const PostcodesTable = (props: { results: Results[], onClick?: (data: string) => void }): JSX.Element => {
-    const tables: JSX.Element[] = [];
+export const PostcodesTable = (props: { results: Results[], onClick?: (data: string) => void, club: Club }): JSX.Element => {
+    const table = createClubBasedFromResults(props.results, props.club);
 
-    for (const result of props.results) {
-        const table = createClubBasedFromResults(result);
-
-        tables.push(
-            <Table<string>
-                key={JSON.stringify(table)}
-                table={table}
-            />
-        );
-    }
-
-    return <>{tables}</>;
+    return <Table<string>
+        key={JSON.stringify(table)}
+        table={table}
+    />
 }
 

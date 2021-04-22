@@ -6,6 +6,7 @@ import {OptionTypeBase} from "react-select";
 import {searchClubs} from "../store/action/searchClubs";
 import {Select, Style} from "./Select";
 import {SearchOptions} from "../repository/ClubRepository";
+import {CancelTokenSource} from "axios";
 
 const SEARCH_TIMEOUT = 350;
 
@@ -17,12 +18,13 @@ type Props = {
     style?: Style,
     onFocus?: () => void,
     options?: SearchOptions,
-    mapMode?: boolean,
+    isDisplayedOnMap?: boolean,
 };
 
 export const ClubSearch = (props: Props) => {
     const dispatch = useDispatch<ThunkDispatchType>();
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const cancelTokenRef = useRef<CancelTokenSource | null>(null)
 
     const handleLoadOptions = (inputValue: string): Promise<OptionTypeBase[]> => {
         return new Promise(((resolve, reject) => {
@@ -38,7 +40,7 @@ export const ClubSearch = (props: Props) => {
             timeoutRef.current = setTimeout(
                 () => {
 
-                    dispatch(searchClubs(inputValue, props.selectedClubs ?? [], props.options))
+                    dispatch(searchClubs(inputValue, props.selectedClubs ?? [], cancelTokenRef, props.options))
                         .then(data => {
                             resolve(data.map(d => ({value: d, label: d.name})))
                         })
@@ -61,6 +63,6 @@ export const ClubSearch = (props: Props) => {
         onFocus={props.onFocus}
         onValueChange={props.onSelect}
         value={value}
-        mapMode={props.mapMode}
+        isDisplayedOnMap={props.isDisplayedOnMap}
     />
 }

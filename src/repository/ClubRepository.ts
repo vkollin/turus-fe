@@ -2,14 +2,15 @@ import {QueryParamsType, Repository} from "./Repository";
 import {Club} from "../model/Club";
 import {ClubSearchResponse} from "../type/api/club";
 import {createClubFromClubResponse} from "../factory/club";
+import {AxiosRequestConfig} from "axios";
 
-export type SearchOptions = {
+export interface SearchOptions {
     withResult?: boolean, // default false
 }
 
 export class ClubRepository extends Repository {
 
-    search = (value: string, exclude: Club[] = [], options?: SearchOptions): Promise<Club[]> => {
+    search = (value: string, exclude: Club[] = [], options: SearchOptions, axiosOptions?: AxiosRequestConfig): Promise<Club[]> => {
         const url = `/api/club/search/${encodeURIComponent(value)}`;
         const query: QueryParamsType = {};
 
@@ -30,7 +31,7 @@ export class ClubRepository extends Repository {
 
         return new Promise<Club[]>(((resolve, reject) => {
             this
-                .get<ClubSearchResponse>(url, query)
+                .get<ClubSearchResponse>(url, query, axiosOptions)
                 .then(response => {
                     resolve(response.map(r => createClubFromClubResponse(r)))
                 })
