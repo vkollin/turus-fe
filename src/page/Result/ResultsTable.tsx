@@ -14,6 +14,7 @@ export const ClubsTable = (props: { results: Results[], onClick?: (data: Club) =
             <Table<Club>
                 key={JSON.stringify(table)}
                 table={table}
+                onClick={props.onClick}
             />
         );
     }
@@ -27,6 +28,7 @@ export const PostcodesTable = (props: { results: Results[], onClick?: (data: str
     return <Table<string>
         key={JSON.stringify(table)}
         table={table}
+        onClick={props.onClick}
     />
 }
 

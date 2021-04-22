@@ -66,14 +66,13 @@ export function createClubBasedFromResults(results: Results[], club: Club): Tabl
             totalCount += r.count;
         }
         const cells = [
-            new Cell('postcode', postcode, {link: true}),
+            new Cell('postcode', postcode),
             new Cell('postcodeShare', DisplayService.formatPercent(r.count / totalCount)),
             new Cell('count', r.count),
             new Cell('clubShare', r.share ? DisplayService.formatPercent(r.share) : ''),
         ];
 
         rows.push(new Row<string>(cells, postcode));
-
     }
 
     return new Table(club.name, columns, rows);

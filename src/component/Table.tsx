@@ -60,12 +60,11 @@ function Body<T>(props: { table: TableModel<T>, onClick: (row: Row<T>) => void }
 
             const value = cell ? `${cell.value}` : '';
 
-            // TODO: Add route for postcodes and clubs
-            // if (cell) {
-            //     if (cell.options?.link) {
-            //         classNames.push(s.Link);
-            //     }
-            // }
+            if (cell) {
+                if (cell.options?.link) {
+                    classNames.push(s.Link);
+                }
+            }
 
             renderedCells.push(<td
                 key={column.name}

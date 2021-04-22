@@ -2,9 +2,12 @@ import {QueryParamsType, Repository} from "./Repository";
 import {GetDataResponse} from "../type/api/map";
 import {Club} from "../model/Club";
 import {AxiosRequestConfig} from "axios";
-import {ResultsResponse} from "../model/ResultsResponse";
+import {ClubAndPostcodeResponse, ResultsResponse} from "../model/ResultsResponse";
 import {createFromResponse} from "../factory/results";
 import {Postcode} from "../model/Postcode";
+import {GetClubAndPostcodeResponse} from "../type/api/results";
+import {createClubFromClubResponse} from "../factory/club";
+import {createPostcodeFromPostcodeSearchResponse} from "../factory/postcode";
 
 export class ResultsRepository extends Repository {
 
@@ -27,6 +30,33 @@ export class ResultsRepository extends Repository {
                     const results = response.shapes.map(s => createFromResponse(s));
 
                     resolve(new ResultsResponse(results))
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        }));
+    }
+
+    getClubAndPostcode = (club: string | null, postcode: string | null, axiosOptions?: AxiosRequestConfig) => {
+        let url = `/api/results/clubpostcode`;
+        const query: QueryParamsType = {};
+
+        if (club) {
+            query['club'] = `${club}`;
+        }
+
+        if (postcode) {
+            query['postcode'] = `${postcode}`;
+        }
+
+        return new Promise<ClubAndPostcodeResponse>(((resolve, reject) => {
+            this
+                .get<GetClubAndPostcodeResponse>(url, query, axiosOptions)
+                .then(response => {
+                    resolve(new ClubAndPostcodeResponse(
+                        response.club ? createClubFromClubResponse(response.club) : null,
+                        response.postcode ? createPostcodeFromPostcodeSearchResponse(response.postcode) : null
+                    ))
                 })
                 .catch(err => {
                     reject(err);
