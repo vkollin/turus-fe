@@ -25,7 +25,7 @@ export class ResultsRepository extends Repository {
 
         return new Promise<ResultsResponse>(((resolve, reject) => {
             this
-                .get<GetDataResponse>(url, query, axiosOptions)
+                .post<null, GetDataResponse>(url, query, null, axiosOptions)
                 .then(response => {
                     const results = response.shapes.map(s => createFromResponse(s));
 
@@ -51,7 +51,7 @@ export class ResultsRepository extends Repository {
 
         return new Promise<ClubAndPostcodeResponse>(((resolve, reject) => {
             this
-                .get<GetClubAndPostcodeResponse>(url, query, axiosOptions)
+                .post<null, GetClubAndPostcodeResponse>(url, query, null, axiosOptions)
                 .then(response => {
                     resolve(new ClubAndPostcodeResponse(
                         response.club ? createClubFromClubResponse(response.club) : null,

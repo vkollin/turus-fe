@@ -33,10 +33,10 @@ export class Repository {
         });
     };
 
-    protected post<PayloadType, ReturnType>(path: string, query?: QueryParamsType, payload: PayloadType | null = null): Promise<ReturnType> {
+    protected post<PayloadType, ReturnType>(path: string, query?: QueryParamsType, payload: PayloadType | null = null, axiosOptions?: AxiosRequestConfig): Promise<ReturnType> {
         return new Promise((resolve, reject) => {
             this.axios
-                .post<ReturnType>(`${this.apiUrl}${path}`, payload, this.buildAxiosOptions())
+                .post<ReturnType>(`${this.apiUrl}${path}`, payload, this.buildAxiosOptions(axiosOptions))
                 .then(rawResponse => {
                     Repository.handleResponse<ReturnType>(rawResponse, resolve, reject)
                 })
